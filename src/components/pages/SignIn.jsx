@@ -30,7 +30,7 @@ function Copyright() {
   );
 }
 
-const USESTYLE = makeStyles((theme) => ({
+const useStyle = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -54,7 +54,7 @@ const USESTYLE = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
-  const CLASSES = USESTYLE();
+  const classes = useStyle();
   const {register,errors,handleSubmit} = useForm();
   const submit =(data) => console.log(data)
 
@@ -63,14 +63,14 @@ export default function SignIn() {
  
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <div className={CLASSES.paper}>
-        <Avatar className={CLASSES.avatar}>
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           ログイン
         </Typography>
-        <form className={CLASSES.form} noValidate onSubmit={handleSubmit(submit)}>
+        <form className={classes.form} noValidate onSubmit={handleSubmit(submit)}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -82,7 +82,7 @@ export default function SignIn() {
             autoComplete="email"
             autoFocus
           />
-          {errors.email && <p className={CLASSES.color}>メールアドレスを入力してください</p>}
+          {errors.email && <p className={classes.color}>メールアドレスを入力してください</p>}
           
           
           
@@ -98,7 +98,7 @@ export default function SignIn() {
             autoComplete="current-password"
             inputRef={register({ required: true })}
           />
-          {errors.password && <p className={CLASSES.color}>パスワードを入力してください</p> }
+          {errors.password && <p className={classes.color}>パスワードを入力してください</p> }
           
           
           <FormControlLabel
@@ -110,7 +110,7 @@ export default function SignIn() {
             fullWidth
             variant="contained"
             color="primary"
-            className={CLASSES.submit}
+            className={classes.submit}
           >
             ログイン
           </Button>
