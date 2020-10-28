@@ -30,7 +30,7 @@ function Copyright() {
   );
 }
 
-const useStyle = makeStyles((theme) => ({
+const use_style = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
@@ -54,7 +54,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
-  const classes = useStyle();
+  const classes = use_style();
   const {register,errors,handleSubmit} = useForm();
   const submit =(data) => console.log(data)
 
