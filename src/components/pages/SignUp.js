@@ -1,4 +1,4 @@
-import React, {useRef} from 'react'
+import React from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -104,7 +104,7 @@ export default function SignUp() {
               />
               {errors.password && <p className={classes.color}>{errors.password.message}</p>}
             </Grid>
-             <Grid item xs={12}>
+            <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 fullWidth
@@ -123,12 +123,6 @@ export default function SignUp() {
               />
               {errors.password_repeat && <p className={classes.color}>{errors.password_repeat.message}</p>}
             </Grid>
-            {/* <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="インスピレーションやマーケティングプロモーション、最新情報をメールで受け取る"
-              />
-            </Grid> */}
           </Grid>
           <Button
             type="submit"

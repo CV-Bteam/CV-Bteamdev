@@ -7,25 +7,12 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {useForm} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const use_style = makeStyles((theme) => ({
   paper: {
@@ -52,12 +39,12 @@ const use_style = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = use_style();
-  const {register,errors,handleSubmit} = useForm();
-  const submit =(data) => console.log(data)
+  const { register, errors, handleSubmit } = useForm();
+  const submit = (data) => console.log(data)
 
 
   return (
- 
+
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -73,16 +60,13 @@ export default function SignIn() {
             margin="normal"
             required
             fullWidth
-            inputRef={register({required: true})}
+            inputRef={register({ required: true })}
             label="メールアドレス"
             name="email"
             autoComplete="email"
             autoFocus
           />
           {errors.email && <p className={classes.color}>メールアドレスを入力してください</p>}
-          
-          
-          
           <TextField
             variant="outlined"
             margin="normal"
@@ -95,9 +79,7 @@ export default function SignIn() {
             autoComplete="current-password"
             inputRef={register({ required: true })}
           />
-          {errors.password && <p className={classes.color}>パスワードを入力してください</p> }
-          
-          
+          {errors.password && <p className={classes.color}>パスワードを入力してください</p>}
           <FormControlLabel
             control={<Checkbox value="remember" color="secondary" />}
             label="ログイン状態を保存する"
@@ -125,9 +107,6 @@ export default function SignIn() {
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
     </Container>
   );
 }
