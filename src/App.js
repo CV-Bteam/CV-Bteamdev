@@ -1,12 +1,16 @@
+
 import React from 'react'
 import SignUp from './components/pages/SignUp'
+import SignIn from './components/pages/SignIn'
+import Header from './components/templates/Header'
+
 
 const App = () => {
   return (
-    <form>
+    <>
+     <Header/>
       <SignUp />
-    </form>
-  );
-}
+    </>
+)}
 
 export default App
