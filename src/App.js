@@ -1,18 +1,16 @@
-import React from 'react';
-// import logo from './logo.svg';
-import './App.css';
 
+import React from 'react'
+import SignUp from './components/pages/SignUp'
 import SignIn from './components/pages/SignIn'
 import Header from './components/templates/Header'
 
 
-function App() {
+const App = () => {
   return (
     <>
-    <Header/>
-    <SignIn/>
+     <Header/>
+      <SignUp />
     </>
-  );
-}
+)}
 
-export default App;
+export default App

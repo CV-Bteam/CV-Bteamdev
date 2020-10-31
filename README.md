@@ -1,8 +1,3 @@
-SS 参加
-NK 参加
-SY 参加
-EU 参加
-YA 参加
 
 
 ## *進め方
@@ -49,4 +44,3 @@ const MAX_NUM = 100:
 * 関数はスネークケース
 ```js
 const handle_click = () => {};
-```
