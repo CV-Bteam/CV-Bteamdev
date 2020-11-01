@@ -1,11 +1,15 @@
 import React from 'react'
 import SignUp from './components/pages/SignUp'
+import Header from './components/templates/Header'
+import SignIn from './components/pages/SignIn'
 
 const App = () => {
   return (
-    <form>
+    <>
+      <Header />
       <SignUp />
-    </form>
+      <SignIn />
+    </>
   );
 }
 
