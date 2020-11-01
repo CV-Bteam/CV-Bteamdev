@@ -70,6 +70,8 @@ export default function Form() {
             label="本の詳細"
             type="text"
             name="detail"
+            rows={5}
+            multiline
             inputRef={register({ required: true })}
           />
           {errors.detail && <p className={classes.color}>本の詳細を入力してください</p>}
