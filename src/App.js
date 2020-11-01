@@ -4,13 +4,14 @@ import './App.css';
 
 import SignIn from './components/pages/SignIn'
 import Header from './components/templates/Header'
+import Form from './components/pages/Form'
 
 
 function App() {
   return (
     <>
     <Header/>
-    <SignIn/>
+    <Form/>
     </>
   );
 }
