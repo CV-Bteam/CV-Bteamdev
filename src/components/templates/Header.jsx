@@ -14,6 +14,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { ClassSharp } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -76,6 +77,10 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
+  },
+  bar: {
+    color: "#e0f2f1",
+    backgroundColor: "#004d40"
   },
 }));
 
@@ -163,8 +168,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static"
-        style={{ color: "#e0f2f1", backgroundColor: "#004d40" }}>
+      <AppBar position="static" className={classes.bar}>
         <Toolbar>
           <IconButton
             edge="start"

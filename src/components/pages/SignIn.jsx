@@ -58,25 +58,19 @@ export default function SignIn() {
           <TextField
             variant="outlined"
             margin="normal"
-            required
             fullWidth
             inputRef={register({ required: true })}
             label="メールアドレス"
             name="email"
-            autoComplete="email"
-            autoFocus
           />
           {errors.email && <p className={classes.color}>メールアドレスを入力してください</p>}
           <TextField
             variant="outlined"
             margin="normal"
-            required
             fullWidth
-            name="password"
             label="パスワード"
             type="password"
             name="password"
-            autoComplete="current-password"
             inputRef={register({ required: true })}
           />
           {errors.password && <p className={classes.color}>パスワードを入力してください</p>}
