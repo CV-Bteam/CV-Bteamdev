@@ -6,8 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {useForm} from 'react-hook-form';
 
-
-
 const use_style = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8), 
