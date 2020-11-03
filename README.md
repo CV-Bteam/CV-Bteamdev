@@ -1,14 +1,4 @@
-SS 参加
-NK 参加
-SY 参加
-EU 参加
-YA 参加
 
-<<<<<<< HEAD
-NK 参加
-EU 参加
-UE 参加
-=======
 
 ## *進め方
 
@@ -54,5 +44,3 @@ const MAX_NUM = 100:
 * 関数はスネークケース
 ```js
 const handle_click = () => {};
-```
->>>>>>> 24ec4cd8f724778bd254b1469bec719798944f3b

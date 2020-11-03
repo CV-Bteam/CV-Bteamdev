@@ -1,3 +1,4 @@
+
 import React, {useState} from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
@@ -37,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
+
   const { register, handleSubmit, errors, getValues} = useForm({});
   const [err, set_err] = useState();
   const submit = async(data) => {
@@ -70,7 +72,7 @@ export default function SignUp() {
                 fullWidth
                 label="姓名"
                 inputRef={register({
-                  required:"姓名を入力してください",
+                  required: "姓名を入力してください",
                   minLength: {
                     value: 2,
                     message: "2文字以上入力してください"
@@ -86,8 +88,8 @@ export default function SignUp() {
                 label="メールアドレス"
                 name="email"
                 inputRef={register({
-                  required:"メールアドレスを入力してください",
-                  pattern:{
+                  required: "メールアドレスを入力してください",
+                  pattern: {
                     value: mailReg,
                     message: "正しいメールアドレスを入力してください",
                   }
@@ -105,8 +107,8 @@ export default function SignUp() {
                 inputRef={register({
                   required: "パスワードを入力してください",
                   pattern: {
-                  value: passReg,
-                  message: "6文字以上かつ英数字、小文字、大文字を1つずつ含む必要があります"
+                    value: passReg,
+                    message: "6文字以上かつ英数字、小文字、大文字を1つずつ含む必要があります"
                   }
                 })}
               />
@@ -121,11 +123,11 @@ export default function SignUp() {
                 type="password"
                 inputRef={register({
                   validate: value => {
-                  if (value === getValues()["password"]) {
-                  return true;
-                  } else {
-                  return "パスワードは一致していません";
-                  }
+                    if (value === getValues()["password"]) {
+                      return true;
+                    } else {
+                      return "パスワードは一致していません";
+                    }
                   }
                 })}
               />

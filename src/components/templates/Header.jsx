@@ -17,6 +17,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import firebase from 'firebase';
 import 'firebase/auth'
 
+
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -79,6 +80,10 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+  bar: {
+    color: "#e0f2f1",
+    backgroundColor: "#004d40"
+  },
 }));
 
 export default function PrimarySearchAppBar() {
@@ -120,6 +125,7 @@ export default function PrimarySearchAppBar() {
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       <MenuItem onClick={() => firebase.auth().signOut()}>Logout</MenuItem>
+
     </Menu>
   );
 
