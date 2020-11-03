@@ -1,4 +1,5 @@
-import React from 'react'
+
+import React, {useState} from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -10,6 +11,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { useForm } from "react-hook-form"
+import firebase from '../../firebase'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -29,16 +31,23 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  color: {
+  err_color: {
     color: "red",
   }
 }));
 
 export default function SignUp() {
   const classes = useStyles();
-  const { register, handleSubmit, errors, getValues } = useForm({});
-  const submit = data => {
-    console.log(data);
+
+  const { register, handleSubmit, errors, getValues} = useForm({});
+  const [err, set_err] = useState();
+  const submit = async(data) => {
+    const providers = await firebase.auth().fetchSignInMethodsForEmail(data.email);
+    if (providers.findIndex(p => p === firebase.auth.EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD) !== -1) {
+      set_err("このメールアドレスは既に使用されています")
+    }else {
+      firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
+    }
   };
   const passReg = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
   const mailReg = new RegExp("^([a-zA-Z0-9])+([a-zA-Z0-9-])*@([a-zA-Z0-9.-])+([a-zA-Z0-9._-]+)+$")
@@ -53,6 +62,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
+          {err && <p className={classes.err_color}>{err}</p>}
         <form className={classes.form} onSubmit={handleSubmit(submit)}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -69,7 +79,7 @@ export default function SignUp() {
                   }
                 })}
               />
-              {errors.fullName && <p className={classes.color}>{errors.fullName.message}</p>}
+              {errors.fullName && <p className={classes.err_color}>{errors.fullName.message}</p>}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -81,11 +91,11 @@ export default function SignUp() {
                   required: "メールアドレスを入力してください",
                   pattern: {
                     value: mailReg,
-                    message: "正しいメールアドレスを入力してください"
+                    message: "正しいメールアドレスを入力してください",
                   }
                 })}
               />
-              {errors.email && <p className={classes.color}>{errors.email.message}</p>}
+              {errors.email && <p className={classes.err_color}>{errors.email.message}</p>}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -102,7 +112,7 @@ export default function SignUp() {
                   }
                 })}
               />
-              {errors.password && <p className={classes.color}>{errors.password.message}</p>}
+              {errors.password && <p className={classes.err_color}>{errors.password.message}</p>}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -121,15 +131,16 @@ export default function SignUp() {
                   }
                 })}
               />
-              {errors.password_repeat && <p className={classes.color}>{errors.password_repeat.message}</p>}
+              {errors.password_repeat && <p className={classes.err_color}>{errors.password_repeat.message}</p>}
             </Grid>
           </Grid>
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
             className={classes.submit}
+            color="primary"
+            style={{ backgroundColor:"#004d40"}}
           >
             Sign up
           </Button>
