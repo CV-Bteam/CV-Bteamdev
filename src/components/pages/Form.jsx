@@ -4,11 +4,11 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {useForm} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 const use_style = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8), 
+    marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -26,14 +26,10 @@ const use_style = makeStyles((theme) => ({
 }));
 
 export default function Form() {
-
   const classes = use_style();
-  const {register,errors,handleSubmit} = useForm();
-  const submit =(data) => console.log(data)
-
-
+  const { register, errors, handleSubmit } = useForm();
+  const submit = (data) => console.log(data)
   return (
- 
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -45,12 +41,10 @@ export default function Form() {
             label="タイトル"
             name="title"
             type="text"
-            inputRef={register( {required: "タイトルを入力してください" })}
-　　　　　　 />
+            inputRef={register({ required: "タイトルを入力してください" })}
+          />
           {errors.title && <p className={classes.color}>{"タイトルを入力してください"}</p>}
-           
-
-　　　　　　<TextField
+          <TextField
             variant="outlined"
             margin="normal"
             fullWidth
@@ -58,12 +52,11 @@ export default function Form() {
             type="url"
             name="url"
             inputRef={register({ required: true })}
-          />　
+          />
           {errors.url && <p className={classes.color}>本のURLを入力してください</p>}
-          
           <TextField
             variant="outlined"
-            margin="normal" 
+            margin="normal"
             fullWidth
             label="本の詳細"
             type="text"
@@ -73,20 +66,18 @@ export default function Form() {
             inputRef={register({ required: true })}
           />
           {errors.detail && <p className={classes.color}>本の詳細を入力してください</p>}
-
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            style={{ backgroundColor:"#004d40"}}
+            style={{ backgroundColor: "#004d40" }}
             className={classes.submit}
           >
-          ADD
+            ADD
           </Button>
         </form>
       </div>
-      
     </Container>
   );
 }

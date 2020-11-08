@@ -38,8 +38,6 @@ const use_style = makeStyles((theme) => ({
 export default function SignIn() {
   const [err, set_err] = useState();
   const classes = use_style();
-
-
   const {register,errors,handleSubmit} = useForm();
   const submit =async(data) => {
     await firebase.auth().signInWithEmailAndPassword(data.email, data.password)
@@ -87,8 +85,7 @@ export default function SignIn() {
             name="password"
             inputRef={register({ required: true })}
           />
-          {errors.password && <p className={classes.color}>パスワードを入力してください</p> }
-         
+          {errors.password && <p className={classes.color}>パスワードを入力してください</p> }      
           {/* <FormControlLabel
             control={<Checkbox value="remember" color="secondary" />}
             label="ログイン状態を保存する"

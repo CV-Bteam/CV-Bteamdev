@@ -1,5 +1,4 @@
-
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -12,7 +11,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { useForm } from "react-hook-form"
 import firebase from '../../firebase'
-
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,18 +33,17 @@ const useStyles = makeStyles((theme) => ({
   err_color: {
     color: "red",
   }
-}));
-
+}))
 export default function SignUp() {
   const classes = useStyles();
 
-  const { register, handleSubmit, errors, getValues} = useForm({});
+  const { register, handleSubmit, errors, getValues } = useForm({});
   const [err, set_err] = useState();
-  const submit = async(data) => {
+  const submit = async (data) => {
     const providers = await firebase.auth().fetchSignInMethodsForEmail(data.email);
     if (providers.findIndex(p => p === firebase.auth.EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD) !== -1) {
       set_err("このメールアドレスは既に使用されています")
-    }else {
+    } else {
       firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
     }
   };
@@ -63,7 +60,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-          {err && <p className={classes.err_color}>{err}</p>}
+        {err && <p className={classes.err_color}>{err}</p>}
         <form className={classes.form} onSubmit={handleSubmit(submit)}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -141,7 +138,7 @@ export default function SignUp() {
             variant="contained"
             className={classes.submit}
             color="primary"
-            style={{ backgroundColor:"#004d40"}}
+            style={{ backgroundColor: "#004d40" }}
           >
             Sign up
           </Button>
