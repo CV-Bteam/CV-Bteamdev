@@ -1,4 +1,4 @@
-import React,{useState,useEffect}from 'react';
+import React,{useState}from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,9 +11,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useForm } from 'react-hook-form';
 import firebase from '../../firebase/firebase'
-import { ErrorMessage } from '@hookform/error-message';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { red } from '@material-ui/core/colors';
 
 const use_style = makeStyles((theme) => ({
   paper: {
