@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState,useEffect}from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,7 +14,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import {useForm} from 'react-hook-form';
 import firebase from '../../firebase/firebase'
-import {useState,useEffect} from 'react'
 import { ErrorMessage } from '@hookform/error-message';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors';
@@ -57,14 +56,27 @@ const use_style = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
+  const [err, set_err] = useState();
   const classes = use_style();
   const {register,errors,handleSubmit} = useForm();
   const submit =async(data) => {
-    console.log(data.email)
-    console.log(data.password)
+ 
 
-    await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
+    await firebase.auth().signInWithEmailAndPassword(data.email, data.password)
+      .then(() => {}, err => {
+        switch(err.code){
+          case 'auth/user-not-found':
+            set_err('メールアドレスが違います') 
+            break;
+          case 'auth/wrong-password':
+            set_err('パスワードが違います')  
+            break;
+        }
+        console.log(err.code)
+      });
   }
+
+  
 
   return (
  
@@ -77,6 +89,7 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           SIGN IN
         </Typography>
+        {err && <p className={classes.color}>{err}</p>}
         <form className={classes.form} noValidate onSubmit={handleSubmit(submit)}>
           <TextField
             variant="outlined"
