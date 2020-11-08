@@ -3,34 +3,17 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {useForm} from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import firebase from '../../firebase/firebase'
 import { ErrorMessage } from '@hookform/error-message';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors';
-
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const use_style = makeStyles((theme) => ({
   paper: {
@@ -58,10 +41,10 @@ const use_style = makeStyles((theme) => ({
 export default function SignIn() {
   const [err, set_err] = useState();
   const classes = use_style();
+
+
   const {register,errors,handleSubmit} = useForm();
   const submit =async(data) => {
- 
-
     await firebase.auth().signInWithEmailAndPassword(data.email, data.password)
       .then(() => {}, err => {
         switch(err.code){
@@ -76,10 +59,8 @@ export default function SignIn() {
       });
   }
 
-  
-
   return (
- 
+
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -95,14 +76,11 @@ export default function SignIn() {
             variant="outlined"
             margin="normal"
             fullWidth
-            inputRef={register({required: true})}
+            inputRef={register({ required: true })}
             label="メールアドレス"
             name="email"
           />
           {errors.email && <p className={classes.color}>メールアドレスを入力してください</p>}
-          
-          
-          
           <TextField
             variant="outlined"
             margin="normal"
@@ -113,8 +91,7 @@ export default function SignIn() {
             inputRef={register({ required: true })}
           />
           {errors.password && <p className={classes.color}>パスワードを入力してください</p> }
-          
-          
+         
           {/* <FormControlLabel
             control={<Checkbox value="remember" color="secondary" />}
             label="ログイン状態を保存する"
@@ -143,13 +120,6 @@ export default function SignIn() {
           </Grid>
         </form>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
     </Container>
   );
 }
-
-
-
-
