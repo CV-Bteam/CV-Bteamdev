@@ -3,8 +3,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -12,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useForm } from 'react-hook-form';
-
+import firebase from '../../firebase/firebase'
 
 const use_style = makeStyles((theme) => ({
   paper: {
@@ -39,8 +37,12 @@ const use_style = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = use_style();
-  const { register, errors, handleSubmit } = useForm();
-  const submit = (data) => console.log(data)
+
+
+  const {register,errors,handleSubmit} = useForm();
+  const submit =async(data) => {
+    await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
+  }
 
 
   return (
@@ -52,7 +54,7 @@ export default function SignIn() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          ログイン
+          SIGN IN
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit(submit)}>
           <TextField
@@ -73,29 +75,31 @@ export default function SignIn() {
             name="password"
             inputRef={register({ required: true })}
           />
-          {errors.password && <p className={classes.color}>パスワードを入力してください</p>}
-          <FormControlLabel
+          {errors.password && <p className={classes.color}>パスワードを入力してください</p> }
+         
+          {/* <FormControlLabel
             control={<Checkbox value="remember" color="secondary" />}
             label="ログイン状態を保存する"
-          />
+          /> */}
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
+            style={{ backgroundColor:"#004d40"}}
             className={classes.submit}
           >
-            ログイン
+            SIGN IN
           </Button>
-          <Grid container>
-            <Grid item xs>
+          <Grid container justify='flex-end'>
+            {/* <Grid item xs>
               <Link href="#" variant="body2">
                 パスワードを忘れた方はこちら
               </Link>
-            </Grid>
-            <Grid item >
-              <Link href="#" variant="body2">
-                {"新規登録"}
+            </Grid> */}
+            <Grid item>
+              <Link href="#" variant="body2" >
+                SIGN UP
               </Link>
             </Grid>
           </Grid>
@@ -104,8 +108,3 @@ export default function SignIn() {
     </Container>
   );
 }
-
-
-
-
-
