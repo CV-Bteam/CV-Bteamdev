@@ -3,6 +3,7 @@ import SignUp from './components/pages/SignUp'
 import SignIn from './components/pages/SignIn'
 import Header from './components/templates/Header'
 import Form from './components/pages/Form'
+import List from './components/pages/List'
 import slice from './reducks/list/listSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { AuthProvider } from "./store/authStore";
@@ -21,6 +22,7 @@ function App() {
         <SignUp />
         <SignIn />
         <Form />
+        <List />
       </AuthProvider>
     </>
   )
