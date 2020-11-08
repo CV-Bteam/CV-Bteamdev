@@ -81,9 +81,10 @@ export default function Form() {
             fullWidth
             variant="contained"
             color="primary"
+            style={{ backgroundColor:"#004d40"}}
             className={classes.submit}
           >
-          追加
+          ADD
           </Button>
         </form>
       </div>
