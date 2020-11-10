@@ -6,6 +6,9 @@ const slice = createSlice({
   reducers: {
     addList: (state, action) => [...state, action.payload],
     deleteList: (state, action) => state.filter(el => el.id !== action.payload),
+  },
+  extraReducers: {
+    
   }
 });
 

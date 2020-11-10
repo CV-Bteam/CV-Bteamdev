@@ -5,6 +5,9 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useForm } from 'react-hook-form';
+import { useDispatch,useSelector } from "react-redux"
+import SLICE from "../../reducks/list/formSlice"
+import { nanoid } from "nanoid"
 
 const use_style = makeStyles((theme) => ({
   paper: {
@@ -26,9 +29,14 @@ const use_style = makeStyles((theme) => ({
 }));
 
 export default function Form() {
+  const formdata = useSelector(state => state.form)
+  console.log(formdata)
+  const dispacth = useDispatch()
   const classes = use_style();
   const { register, errors, handleSubmit } = useForm();
-  const submit = (data) => console.log(data)
+  const submit = (data) => {
+    dispacth (SLICE.actions.setForm({text:data.detail,title:data.title,url:data.url,id:nanoid()}))
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
