@@ -8,6 +8,8 @@ import { useForm } from 'react-hook-form';
 import { useDispatch,useSelector } from "react-redux"
 import SLICE from "../../reducks/list/formSlice"
 import { nanoid } from "nanoid"
+import { Controller } from "react-hook-form"
+import Rating from "@material-ui/lab/Rating"
 
 const use_style = makeStyles((theme) => ({
   paper: {
@@ -33,7 +35,10 @@ export default function Form() {
   console.log(formdata)
   const dispacth = useDispatch()
   const classes = use_style();
-  const { register, errors, handleSubmit } = useForm();
+  const { register, errors, handleSubmit,control } = useForm();
+  const sub=(data)=>{
+    console.table(data)
+  }
   const submit = (data) => {
     dispacth (SLICE.actions.setForm({text:data.detail,title:data.title,url:data.url,id:nanoid()}))
   }
@@ -62,6 +67,15 @@ export default function Form() {
             inputRef={register({ required: true })}
           />
           {errors.url && <p className={classes.color}>本のURLを入力してください</p>}
+           
+      <Controller
+      name="reviews"
+      control={control}
+      defaultValue={2.5}
+      precision={0.5}
+      as={Rating}
+      />
+
           <TextField
             variant="outlined"
             margin="normal"
@@ -89,4 +103,3 @@ export default function Form() {
     </Container>
   );
 }
-
