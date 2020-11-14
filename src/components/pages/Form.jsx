@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState} from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch,useSelector } from "react-redux"
 import SLICE from "../../reducks/list/formSlice"
 import { nanoid } from "nanoid"
+import firebase from '../../firebase/firebase'
 
 const use_style = makeStyles((theme) => ({
   paper: {
@@ -36,6 +37,11 @@ export default function Form() {
   const { register, errors, handleSubmit } = useForm();
   const submit = (data) => {
     dispacth (SLICE.actions.setForm({text:data.detail,title:data.title,url:data.url,id:nanoid()}))
+         firebase.firestore().collection('messages').add({
+           text: data.detail,
+           title: data.title,
+           url: data.url
+         })
   }
   return (
     <Container component="main" maxWidth="xs">
@@ -88,5 +94,4 @@ export default function Form() {
       </div>
     </Container>
   );
-}
-
+  }
