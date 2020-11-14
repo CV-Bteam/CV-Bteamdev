@@ -1,4 +1,5 @@
 import React from 'react'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import SignUp from './components/pages/SignUp'
 import SignIn from './components/pages/SignIn'
 import Header from './components/templates/Header'
@@ -19,10 +20,26 @@ function App() {
     <>
       <AuthProvider >
         <Header />
-        <SignUp />
-        <SignIn />
-        <Form />
-        <List />
+        <Router>
+          <Switch>
+            <Route
+              exact path="/signup"
+              component={SignUp}
+            />
+            <Route
+              exact path="/signin"
+              component={SignIn}
+            />
+            <Route
+              exact path="/form"
+              component={Form}
+            />
+            <Route
+              exact path="/"
+              component={List}
+            />
+          </Switch>
+        </Router>
       </AuthProvider>
     </>
   )
