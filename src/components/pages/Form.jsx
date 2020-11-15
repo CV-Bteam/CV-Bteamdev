@@ -5,10 +5,13 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import SLICE from '../../reducks/list/formSlice';
-import { nanoid } from 'nanoid';
-import firebase from '../../firebase/firebase';
+import { useDispatch, useSelector } from "react-redux"
+import SLICE from "../../reducks/list/formSlice"
+import { nanoid } from "nanoid"
+import firebase from '../../firebase/firebase'
+import { Controller } from "react-hook-form"
+import Rating from "@material-ui/lab/Rating"
+
 
 const use_style = makeStyles((theme) => ({
   paper: {
@@ -31,10 +34,10 @@ const use_style = makeStyles((theme) => ({
 
 export default function Form() {
   const formdata = useSelector((state) => state.form);
-  console.log(formdata);
   const dispacth = useDispatch();
+
   const classes = use_style();
-  const { register, errors, handleSubmit } = useForm();
+  const { register, errors, handleSubmit, control } = useForm();
   const submit = (data) => {
     dispacth(
       SLICE.actions.setForm({
@@ -50,6 +53,7 @@ export default function Form() {
       url: data.url,
     });
   };
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -80,9 +84,15 @@ export default function Form() {
             name="url"
             inputRef={register({ required: true })}
           />
-          {errors.url && (
-            <p className={classes.color}>本のURLを入力してください</p>
-          )}
+
+          {errors.url && <p className={classes.color}>本のURLを入力してください</p>}
+          <Controller
+            name="reviews"
+            control={control}
+            defaultValue={2.5}
+            precision={0.5}
+            as={<Rating />}
+          />
           <TextField
             variant="outlined"
             margin="normal"
@@ -111,4 +121,6 @@ export default function Form() {
       </div>
     </Container>
   );
+
 }
+
