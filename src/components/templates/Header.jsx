@@ -124,8 +124,7 @@ export default function PrimarySearchAppBar() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-      <MenuItem onClick={() => firebase.auth().signOut()}>Logout</MenuItem>
-
+      <MenuItem onClick={() => firebase.auth().signOut()}>SignOut</MenuItem>
     </Menu>
   );
 

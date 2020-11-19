@@ -1,4 +1,3 @@
-
 import React, {useState} from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
@@ -11,7 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { useForm } from "react-hook-form"
-import firebase from '../../firebase'
+import firebase from '../../firebase/firebase'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
-
   const { register, handleSubmit, errors, getValues} = useForm({});
   const [err, set_err] = useState();
   const submit = async(data) => {
@@ -60,7 +58,7 @@ export default function SignUp() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          SIGN UP
         </Typography>
           {err && <p className={classes.err_color}>{err}</p>}
         <form className={classes.form} onSubmit={handleSubmit(submit)}>
@@ -103,7 +101,6 @@ export default function SignUp() {
                 fullWidth
                 name="password"
                 label="パスワード"
-                type="password"
                 inputRef={register({
                   required: "パスワードを入力してください",
                   pattern: {
@@ -142,12 +139,12 @@ export default function SignUp() {
             color="primary"
             style={{ backgroundColor:"#004d40"}}
           >
-            Sign up
+            SIGN UP
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
-              <Link href="#" variant="body2">
-                既にアカウントをお持ちの方はSign inして下さい
+              <Link href="/signin">
+                既にアカウントをお持ちの方はSIGN INして下さい
               </Link>
             </Grid>
           </Grid>

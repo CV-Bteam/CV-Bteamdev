@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {AuthContext} from '../../Auth/AuthServise';
+import {Redirect} from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -12,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useForm } from 'react-hook-form';
-import firebase from '../../firebase/firebase'
+import firebase from '../../firebase/firebase';
 
 const use_style = makeStyles((theme) => ({
   paper: {
@@ -37,15 +37,19 @@ const use_style = makeStyles((theme) => ({
   }
 }));
 
-export default function SignIn() {
+export default function SignIn({history}) {
   const classes = use_style();
-
-
-  const {register,errors,handleSubmit} = useForm();
-  const submit =async(data) => {
-    await firebase.auth().signInWithEmailAndPassword(data.email, data.password);
+  const {register,errors,handleSubmit} = useForm({});
+  const user = useContext(AuthContext)
+  if (user) {
+    return <Redirect to='/' />
   }
-
+  const submit =async(data) => {
+    await firebase.auth().signInWithEmailAndPassword(data.email, data.password)
+      .then(() => {
+        history.push('/')
+      })
+  }
 
   return (
 
@@ -100,7 +104,7 @@ export default function SignIn() {
               </Link>
             </Grid> */}
             <Grid item>
-              <Link href="#" variant="body2" >
+              <Link href="/signup">
                 SIGN UP
               </Link>
             </Grid>
