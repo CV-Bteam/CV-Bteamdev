@@ -49,8 +49,8 @@ export default function SignIn() {
           case 'auth/wrong-password':
             set_err('パスワードが違います')  
             break;
+          default:console.log(err.code)
         }
-        console.log(err.code)
       });
   }
 
