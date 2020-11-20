@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+
+import React, { useState, useContext } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -11,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { useForm } from "react-hook-form"
 import firebase from '../../firebase/firebase'
+import {AuthContext} from '../../Auth/AuthServise'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,18 +35,22 @@ const useStyles = makeStyles((theme) => ({
   err_color: {
     color: "red",
   }
-}));
-
+}))
 export default function SignUp() {
   const classes = useStyles();
-  const { register, handleSubmit, errors, getValues} = useForm({});
+  const user = useContext(AuthContext)
+  console.log(user)
+  const { register, handleSubmit, errors, getValues } = useForm({});
+
   const [err, set_err] = useState();
-  const submit = async(data) => {
+  const submit = async (data) => {
     const providers = await firebase.auth().fetchSignInMethodsForEmail(data.email);
     if (providers.findIndex(p => p === firebase.auth.EmailAuthProvider.EMAIL_PASSWORD_SIGN_IN_METHOD) !== -1) {
       set_err("このメールアドレスは既に使用されています")
-    }else {
-      firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
+    } else {
+      firebase.auth().createUserWithEmailAndPassword(data.email, data.password).then(({user}) => {user.updateProfile({
+        displayName: data.userName
+      })})
     }
   };
   const passReg = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
@@ -60,24 +66,27 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           SIGN UP
         </Typography>
-          {err && <p className={classes.err_color}>{err}</p>}
+        {err && <p className={classes.err_color}>{err}</p>}
         <form className={classes.form} onSubmit={handleSubmit(submit)}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
-                name="fullName"
+                name="userName"
                 variant="outlined"
                 fullWidth
-                label="姓名"
+                label="ユーザー名"
+                type="user"
                 inputRef={register({
-                  required: "姓名を入力してください",
+                  required: 'ユーザー名を入力してください',
                   minLength: {
-                    value: 2,
-                    message: "2文字以上入力してください"
-                  }
+                    value: 1,
+                    message: '１文字以上入力してください',
+                  },
                 })}
               />
-              {errors.fullName && <p className={classes.err_color}>{errors.fullName.message}</p>}
+              {errors.userName && (
+                <p className={classes.err_color}>{errors.userName.message}</p>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -86,14 +95,16 @@ export default function SignUp() {
                 label="メールアドレス"
                 name="email"
                 inputRef={register({
-                  required: "メールアドレスを入力してください",
+                  required: 'メールアドレスを入力してください',
                   pattern: {
                     value: mailReg,
-                    message: "正しいメールアドレスを入力してください",
-                  }
+                    message: '正しいメールアドレスを入力してください',
+                  },
                 })}
               />
-              {errors.email && <p className={classes.err_color}>{errors.email.message}</p>}
+              {errors.email && (
+                <p className={classes.err_color}>{errors.email.message}</p>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -102,14 +113,17 @@ export default function SignUp() {
                 name="password"
                 label="パスワード"
                 inputRef={register({
-                  required: "パスワードを入力してください",
+                  required: 'パスワードを入力してください',
                   pattern: {
                     value: passReg,
-                    message: "6文字以上かつ英数字、小文字、大文字を1つずつ含む必要があります"
-                  }
+                    message:
+                      '6文字以上かつ英数字、小文字、大文字を1つずつ含む必要があります',
+                  },
                 })}
               />
-              {errors.password && <p className={classes.err_color}>{errors.password.message}</p>}
+              {errors.password && (
+                <p className={classes.err_color}>{errors.password.message}</p>
+              )}
             </Grid>
             <Grid item xs={12}>
               <TextField
@@ -119,16 +133,20 @@ export default function SignUp() {
                 label="パスワードをもう一度入力してください"
                 type="password"
                 inputRef={register({
-                  validate: value => {
-                    if (value === getValues()["password"]) {
+                  validate: (value) => {
+                    if (value === getValues()['password']) {
                       return true;
                     } else {
-                      return "パスワードは一致していません";
+                      return 'パスワードは一致していません';
                     }
-                  }
+                  },
                 })}
               />
-              {errors.password_repeat && <p className={classes.err_color}>{errors.password_repeat.message}</p>}
+              {errors.password_repeat && (
+                <p className={classes.err_color}>
+                  {errors.password_repeat.message}
+                </p>
+              )}
             </Grid>
           </Grid>
           <Button
@@ -137,7 +155,7 @@ export default function SignUp() {
             variant="contained"
             className={classes.submit}
             color="primary"
-            style={{ backgroundColor:"#004d40"}}
+            style={{ backgroundColor: '#004d40' }}
           >
             SIGN UP
           </Button>

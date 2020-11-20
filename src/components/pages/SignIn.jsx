@@ -1,6 +1,8 @@
-import React, {useContext} from 'react';
+
+import React, {useContext,useState} from 'react';
 import {AuthContext} from '../../Auth/AuthServise';
 import {Redirect} from 'react-router-dom';
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -37,18 +39,28 @@ const use_style = makeStyles((theme) => ({
   }
 }));
 
+
 export default function SignIn({history}) {
+  const [err, set_err] = useState();
   const classes = use_style();
-  const {register,errors,handleSubmit} = useForm({});
+  const {register,errors,handleSubmit} = useForm();
   const user = useContext(AuthContext)
-  if (user) {
+    if (user) {
     return <Redirect to='/' />
   }
   const submit =async(data) => {
     await firebase.auth().signInWithEmailAndPassword(data.email, data.password)
-      .then(() => {
-        history.push('/')
-      })
+      .then(() => { history.push('/')}, err => {
+        switch(err.code){
+          case 'auth/user-not-found':
+            set_err('メールアドレスが違います') 
+            break;
+          case 'auth/wrong-password':
+            set_err('パスワードが違います')  
+            break;
+          default:console.log(err.code)
+        }
+      });
   }
 
   return (
@@ -62,6 +74,7 @@ export default function SignIn({history}) {
         <Typography component="h1" variant="h5">
           SIGN IN
         </Typography>
+        {err && <p className={classes.color}>{err}</p>}
         <form className={classes.form} noValidate onSubmit={handleSubmit(submit)}>
           <TextField
             variant="outlined"
@@ -81,8 +94,7 @@ export default function SignIn({history}) {
             name="password"
             inputRef={register({ required: true })}
           />
-          {errors.password && <p className={classes.color}>パスワードを入力してください</p> }
-         
+          {errors.password && <p className={classes.color}>パスワードを入力してください</p> }      
           {/* <FormControlLabel
             control={<Checkbox value="remember" color="secondary" />}
             label="ログイン状態を保存する"
