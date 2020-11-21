@@ -125,7 +125,7 @@ function Detail(){
             <p className={classes.paragraph}>アレクサンドロス3世（ギリシア語: Ἀλέξανδρος Γ'、紀元前356年7月20日 - 紀元前323年6月10日）、通称アレクサンドロス大王（ギリシア語: Ἀλέξανδρος ὁ Μέγας）は、古代ギリシャのアルゲアス朝マケドニア王国のバシレウス(王)（在位：紀元前336年 - 紀元前323年）である。また、コリントス同盟（ヘラス同盟）の盟主、エジプトのファラオも兼ねた。</p>
           </Grid>
         </Grid>
-        <form className={classes.form2}>
+        <form className={classes.form2} >
           <TextField
             className={classes.text2}
             label='コメント'

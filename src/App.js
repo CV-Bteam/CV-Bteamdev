@@ -19,8 +19,8 @@ function App() {
   return (
     <>
       <AuthProvider >
+        <Router>        
         <Header />
-        <Router>
           <Switch>
             <Route
               exact path="/signup"
