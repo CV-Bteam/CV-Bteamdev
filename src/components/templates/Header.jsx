@@ -15,8 +15,10 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import firebase from 'firebase';
-import 'firebase/auth'
-
+import 'firebase/auth';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -81,8 +83,19 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   bar: {
-    color: "#e0f2f1",
-    backgroundColor: "#004d40"
+    color: '#e0f2f1',
+    backgroundColor: '#004d40',
+  },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(15, 15, 3),
   },
 }));
 
@@ -90,6 +103,15 @@ export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -122,10 +144,29 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div className={classes.paper}>
+            <h2 id="transition-modal-title">　Icon登録</h2>
+            <p id="transition-modal-description">画像を登録してください</p>
+          </div>
+        </Fade>
+      </Modal>
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
       <MenuItem onClick={() => firebase.auth().signOut()}>Logout</MenuItem>
-
+      <MenuItem onClick={handleOpen}>Icon login</MenuItem>
     </Menu>
   );
 
@@ -172,8 +213,10 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static"
-        style={{ color: "#e0f2f1", backgroundColor: "#004d40" }}>
+      <AppBar
+        position="static"
+        style={{ color: '#e0f2f1', backgroundColor: '#004d40' }}
+      >
         <Toolbar>
           <IconButton
             edge="start"
@@ -239,4 +282,4 @@ export default function PrimarySearchAppBar() {
       {renderMenu}
     </div>
   );
-} 
+}
