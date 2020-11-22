@@ -1,36 +1,21 @@
 import React from 'react'
-import img from './img/Alexander_III_of_Macedon.jpg'
-// import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
-// import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-// import Box from '@material-ui/core/Box';
-// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import {Card, CardMedia } from '@material-ui/core';
-// import { spacing } from '@material-ui/system';
-// import {useForm} from 'react-hook-form';
-// import firebase from '../../firebase/firebase'
-// import {useState,useEffect} from 'react'
-// import { ErrorMessage } from '@hookform/error-message';
-// import { createMuiTheme } from '@material-ui/core/styles';
-// import { red } from '@material-ui/core/colors';
+import { Card, CardMedia } from '@material-ui/core';
 
-
-const usestyle =makeStyles((theme) => ({
-  spacing:{
+const usestyle = makeStyles((theme) => ({
+  spacing: {
     spacing: 8,
   },
   paper: {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    marginTop:theme.spacing(5)
+    marginTop: theme.spacing(5)
   },
   form1: {
     width: '50%',
@@ -43,13 +28,13 @@ const usestyle =makeStyles((theme) => ({
   form2: {
     width: '70%',
     marginTop: theme.spacing(3),
-    
+
   },
   text1: {
     marginTop: theme.spacing(2),
     width: '100%'
   },
-  text2:{
+  text2: {
     width: '100%'
   },
   flex1: {
@@ -57,13 +42,13 @@ const usestyle =makeStyles((theme) => ({
     flexDirection: 'row',
     marginTop: theme.spacing(6),
   },
-  flex2:{
+  flex2: {
     display: 'flex',
     flexDirection: 'column',
-    width : '50%',
+    width: '50%',
     textAlign: 'center',
   },
-  root :{
+  root: {
     width: '100%',
     boxShadow: 'initial',
     backgroundColor: 'initial'
@@ -74,11 +59,11 @@ const usestyle =makeStyles((theme) => ({
   },
   title: {
     textAlign: 'center',
-  
+
   },
   paragraph: {
     fontSize: 'large',
-    lineHeight: '2.5', 
+    lineHeight: '2.5',
     fontFamily: '-apple-system',
     fontWeight: 'bold'
   },
@@ -88,7 +73,7 @@ const usestyle =makeStyles((theme) => ({
     margin: '0 auto',
     backgroundColor: 'rgb(0,77,64)',
     color: 'white',
-    border: 'none', 
+    border: 'none',
     padding: '10px 40px',
     marginTop: '30px',
     borderRadius: '5px'
@@ -96,16 +81,11 @@ const usestyle =makeStyles((theme) => ({
 }))
 
 
-
-
-
-function Detail(){
-
-  const classes=usestyle()
-
-  return(
+function Detail() {
+  const classes = usestyle()
+  return (
     <Container component='main'>
-      <CssBaseline/>
+      <CssBaseline />
       <div className={classes.paper}>
         <Typography component='h1' variant='h3'>
           詳細
@@ -113,10 +93,10 @@ function Detail(){
         <Grid container className={classes.flex1}>
           <Grid item xs={6} className={classes.flex2}>
             <h2 className={classes.title}>本のタイトル</h2>
-            <Card  className={classes.root}>
+            <Card className={classes.root}>
               <CardMedia
                 component='img'
-                image={img}
+                // image={img}
                 className={classes.img}
               />
             </Card>
@@ -133,16 +113,14 @@ function Detail(){
             rows='4'
             multiline
           />
-        <button 
-          className={classes.btn}
-          justify='center'
-        >
-          コメントする
+          <button
+            className={classes.btn}
+            justify='center'
+          >
+            コメントする
         </button>
         </form>
       </div>
-     
-      
     </Container>
   )
 }

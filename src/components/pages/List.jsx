@@ -3,9 +3,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Listitem from "../templates/Listitem";
-import { Controller } from "react-hook-form"
-import { useForm } from 'react-hook-form';
-
 
 const use_style = makeStyles((theme) => ({
   paper: {
@@ -19,7 +16,6 @@ const use_style = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   }
 }));
-
 
 export default function List() {
   const RED = '#99cccc'
@@ -35,15 +31,12 @@ export default function List() {
   ]
   const classes = use_style();
 
-
   return (
-
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-
       <div className={classes.paper}>
         <div className={classes.form}>
-          {listitems.map((listitem, index) => ((index % 2) != 0 ?
+          {listitems.map((listitem, index) => ((index % 2) !== 0 ?
             <Listitem color={RED} listitem={listitem} key={listitem.title} /> :
             <Listitem color={BLUE} listitem={listitem} key={listitem.title} />
           )
