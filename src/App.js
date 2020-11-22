@@ -14,8 +14,8 @@ function App() {
 
     <>
       <AuthProvider >
+        <Router>        
         <Header />
-        <Router>
           <Switch>
             <LoggedInRoute exact path='/form' component={Form} />
             <Route

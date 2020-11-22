@@ -64,7 +64,6 @@ export default function SignIn({history}) {
   }
 
   return (
-
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -110,11 +109,6 @@ export default function SignIn({history}) {
             SIGN IN
           </Button>
           <Grid container justify='flex-end'>
-            {/* <Grid item xs>
-              <Link href="#" variant="body2">
-                パスワードを忘れた方はこちら
-              </Link>
-            </Grid> */}
             <Grid item>
               <Link href="/signup">
                 SIGN UP
