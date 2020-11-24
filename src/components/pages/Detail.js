@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Card, CardMedia } from '@material-ui/core';
+import firebase from "firebase";
+import "firebase/storage";
 
 const usestyle = makeStyles((theme) => ({
   spacing: {
@@ -80,8 +82,16 @@ const usestyle = makeStyles((theme) => ({
   }
 }))
 
+ 
+
+           
+
+
 
 function Detail() {
+  useEffect(()=>{
+    firebase.firestore().collection('/messages').onSnapshot((snapshot)=>console.log(snapshot.docs[0].data()))
+   },[])
   const classes = usestyle()
   return (
     <Container component='main'>
