@@ -90,7 +90,7 @@ const usestyle = makeStyles((theme) => ({
 
 function Detail() {
   useEffect(()=>{
-    firebase.firestore().collection('/messages').onSnapshot((snapshot)=>console.log(snapshot.docs[0].data()))
+    firebase.firestore().collection('/messages').onSnapshot((snapshot)=>(snapshot.docs.map((doc)=>console.log(doc.data()))))
    },[])
   const classes = usestyle()
   return (
