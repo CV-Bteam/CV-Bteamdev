@@ -10,22 +10,14 @@ const Listitem =({listitem,color})=> {
       display:"flex",
       justifyContent:"space-around",
       alignItems:"center"
-    }
-    
-    
-
-  
+    } 
 
     return(
-      <div style={container}>
-      
-      
-      <h4>title</h4>
-        <p>{listitem.title}</p>
+      <div style={container}>     
+     　 <h4>title</h4>
+        　<p>{listitem.title}</p>
            <div><Rating readOnly /></div>
-    
       </div>
-  
     )  
 }
 
