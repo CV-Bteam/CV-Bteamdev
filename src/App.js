@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import SignUp from './components/pages/SignUp'
@@ -8,6 +9,7 @@ import LoggedInRoute from './Auth/LoggedInRouter'
 import {AuthProvider} from './Auth/AuthServise'
 import List from './components/pages/List'
 import Detail from "./components/pages/Detail"
+
 
 function App() {
   return (
@@ -38,6 +40,6 @@ function App() {
         </Router>
       </AuthProvider>
     </>
-  )
+  );
 }
-export default App
+export default App;
