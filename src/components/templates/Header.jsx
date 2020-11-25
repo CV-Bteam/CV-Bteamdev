@@ -1,4 +1,5 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -19,6 +20,7 @@ import 'firebase/auth';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -62,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
     width: '100%',
@@ -133,6 +134,7 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -165,6 +167,8 @@ export default function PrimarySearchAppBar() {
       </Modal>
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+
+      <MenuItem onClick= {handleMenuClose} ><NavLink to='/signin' style={{textDecoration:'none',color: 'rgb(33,33,33)'}}>Signin</NavLink></MenuItem>
       <MenuItem onClick={() => firebase.auth().signOut()}>Logout</MenuItem>
       <MenuItem onClick={handleOpen}>Icon login</MenuItem>
     </Menu>
