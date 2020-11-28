@@ -6,7 +6,6 @@ import Listitem from "../templates/Listitem";
 
 const use_style = makeStyles((theme) => ({
   paper: {
-
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

@@ -17,7 +17,6 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import firebase from 'firebase';
 import 'firebase/auth'
 
-
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -111,6 +110,14 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  var user = firebase.auth().currentUser;
+
+  if (user != null) {
+    user.providerData.forEach(function (profile) {
+      console.log(profile.email);
+    });
+  };
+
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -123,7 +130,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={isMenuOpen}>My account</MenuItem>
       <MenuItem onClick={() => firebase.auth().signOut()}>SignOut</MenuItem>
     </Menu>
   );
