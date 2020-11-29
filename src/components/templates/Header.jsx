@@ -15,7 +15,8 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import firebase from 'firebase';
-import 'firebase/auth'
+import 'firebase/auth';
+
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -85,6 +86,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -130,7 +132,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={isMenuOpen}>My account</MenuItem>
+      <MenuItem >My account</MenuItem>
       <MenuItem onClick={() => firebase.auth().signOut()}>SignOut</MenuItem>
     </Menu>
   );

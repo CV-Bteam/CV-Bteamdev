@@ -28,6 +28,7 @@ export default function List() {
     { title: "Ruby" },
     { title: "C言語" }
   ]
+  
   const classes = use_style();
 
   return (
@@ -38,8 +39,7 @@ export default function List() {
           {listitems.map((listitem, index) => ((index % 2) !== 0 ?
             <Listitem color={RED} listitem={listitem} key={listitem.title} /> :
             <Listitem color={BLUE} listitem={listitem} key={listitem.title} />
-          )
-          )}
+          ))}
         </div>
       </div>
     </Container>
