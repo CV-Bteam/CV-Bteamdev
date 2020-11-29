@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -6,6 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Card, CardMedia } from '@material-ui/core';
+import firebase from "firebase";
+import "firebase/storage";
 
 const usestyle = makeStyles((theme) => ({
   spacing: {
@@ -80,8 +82,16 @@ const usestyle = makeStyles((theme) => ({
   }
 }))
 
+ 
+
+           
+
+
 
 function Detail() {
+  useEffect(()=>{
+    firebase.firestore().collection('/messages').onSnapshot((snapshot)=>(snapshot.docs.map((doc)=>console.log(doc.data()))))
+   },[])
   const classes = usestyle()
   return (
     <Container component='main'>
@@ -105,7 +115,7 @@ function Detail() {
             <p className={classes.paragraph}>アレクサンドロス3世（ギリシア語: Ἀλέξανδρος Γ'、紀元前356年7月20日 - 紀元前323年6月10日）、通称アレクサンドロス大王（ギリシア語: Ἀλέξανδρος ὁ Μέγας）は、古代ギリシャのアルゲアス朝マケドニア王国のバシレウス(王)（在位：紀元前336年 - 紀元前323年）である。また、コリントス同盟（ヘラス同盟）の盟主、エジプトのファラオも兼ねた。</p>
           </Grid>
         </Grid>
-        <form className={classes.form2}>
+        <form className={classes.form2} >
           <TextField
             className={classes.text2}
             label='コメント'
