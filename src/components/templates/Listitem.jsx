@@ -1,24 +1,27 @@
 import React from 'react';
 import Rating from '@material-ui/lab/Rating';
+import { makeStyles } from "@material-ui/core/styles"
 
-
-
-const Listitem =({listitem,color})=> {
-    const container = {
+const Listitem = ({listitem,color}) => {
+  
+  const use_style = makeStyles({
+    container:{
       fontSize: "16px",
       backgroundColor: color,
-      display:"flex",
-      justifyContent:"space-around",
-      alignItems:"center"
-    } 
+      display: "flex",
+      justifyContent: "space-around",
+      alignItems: "center"
+    }})
 
-    return(
-      <div style={container}>     
-     　 <h4>title</h4>
-        　<p>{listitem.title}</p>
-           <div><Rating readOnly /></div>
-      </div>
-    )  
+  const classes = use_style()
+
+  return (
+    <div className={classes.container}>
+      <h4>title</h4>
+      <p>{listitem.title}</p>
+      <div><Rating readOnly /></div>
+    </div>
+  )
 }
 
 export default Listitem

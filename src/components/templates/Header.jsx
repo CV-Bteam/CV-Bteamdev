@@ -22,6 +22,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 
 
+
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -100,6 +101,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -134,6 +136,13 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const user = firebase.auth().currentUser;
+  if (user != null) {
+    user.providerData.forEach(function (profile) {
+      console.log(profile.email);
+    });
+  };
+
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -166,11 +175,13 @@ export default function PrimarySearchAppBar() {
         </Fade>
       </Modal>
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
 
       <MenuItem onClick= {handleMenuClose} ><NavLink to='/signin' style={{textDecoration:'none',color: 'rgb(33,33,33)'}}>Signin</NavLink></MenuItem>
       <MenuItem onClick={() => firebase.auth().signOut()}>Logout</MenuItem>
       <MenuItem onClick={handleOpen}>Icon login</MenuItem>
+
     </Menu>
   );
 

@@ -1,4 +1,3 @@
-
 import React, { useState, useContext } from 'react'
 import Avatar from '@material-ui/core/Avatar'
 import Button from '@material-ui/core/Button'
@@ -38,8 +37,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 export default function SignUp() {
   const classes = useStyles();
-  const user = useContext(AuthContext)
-  console.log(user)
+  const user = useContext(AuthContext);
   const { register, handleSubmit, errors, getValues } = useForm({});
 
   const [err, set_err] = useState();
