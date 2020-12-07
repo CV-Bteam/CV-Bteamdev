@@ -1,9 +1,10 @@
-import React from 'react';
+import React,{useState} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Listitem from "../templates/Listitem";
 import {useSelector} from "react-redux"
+import Pagenation from "@material-ui/lab/Pagination"
 
 const use_style = makeStyles((theme) => ({
   paper: {
@@ -18,32 +19,35 @@ const use_style = makeStyles((theme) => ({
 }));
 
 export default function List() {
+  const [pagenumber,set_pagenumber]=useState(0)
   const RED = '#99cccc'
   const BLUE = '#008080'
-  const listitems = [
-    { title: "JavaScript" },
-    { title: "React" },
-    { title: "Java" },
-    { title: "PHP" },
-    { title: "Pyson" },
-    { title: "Ruby" },
-    { title: "C言語" }
-  ]
-  
+  const MAX=9
   const classes = use_style();
   const list = useSelector(state => state.lists)
-  console.log(list)
-
+  const sliceByNumber = (array, number) => {
+    const length = Math.ceil(array.length / number)
+    return new Array(length).fill().map((_, i) =>
+      array.slice(i * number, (i + 1) * number)
+    )
+  }
+  const tenList=sliceByNumber(list, MAX)
+  const listcount=Math.ceil(list.length/10)
+  console.log(listcount)
+  const pageChange=(e,value)=>{
+    set_pagenumber(value-1)
+  }
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
         <div className={classes.form}>
-          {listitems.map((listitem, index) => ((index % 2) !== 0 ?
+          {tenList[pagenumber]?.map((listitem, index) => ((index % 2) !== 0 ?
             <Listitem color={RED} listitem={listitem} key={listitem.title} /> :
             <Listitem color={BLUE} listitem={listitem} key={listitem.title} />
           ))}
         </div>
+        <Pagenation count={listcount} onChange={pageChange} color="primary"/>
       </div>
     </Container>
   );
