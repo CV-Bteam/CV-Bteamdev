@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,11 +11,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useForm } from 'react-hook-form';
 import firebase, { fireStorage } from '../../firebase/firebase';
-import { AuthContext } from '../../Auth/AuthServise';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -71,10 +70,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const classes = useStyles();
   const history = useHistory()
-  const user = useContext(AuthContext);
   const { register, handleSubmit, errors, getValues } = useForm({});
-
-
   const [err, set_err] = useState();
   const submit = async (data) => {
     const providers = await firebase
@@ -92,15 +88,25 @@ export default function SignUp() {
         .auth()
         .createUserWithEmailAndPassword(data.email, data.password)
         .then(({ user }) => {
-          fireStorage.ref().child(user.id).put(file).then((snapshot)=>{
-            snapshot.ref.getDownloadURL()
-          }).then((downloadURL)=>{
+          if (file === null) {
             user.updateProfile({
               displayName: data.userName,
-              photoURL: downloadURL,
             });
             history.push('/')
-          })
+          } else {
+            fireStorage.ref().child(user.uid).put(file).then((snapshot) => {
+              snapshot.ref.getDownloadURL()
+            }).then((downloadURL) => {
+              user.updateProfile({
+                displayName: data.userName,
+                photoURL: downloadURL,
+              });
+              history.push('/')
+
+            }).catch((er) => {
+              console.log(er)
+            })
+          }
         });
     }
   };
@@ -110,9 +116,9 @@ export default function SignUp() {
   const mailReg = new RegExp(
     '^([a-zA-Z0-9])+([a-zA-Z0-9-])*@([a-zA-Z0-9.-])+([a-zA-Z0-9._-]+)+$'
   );
-  
+
   const createObjectURL =
-  (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
+    (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
   const [open, setOpen] = React.useState(false);
   const [Icon, setIcon] = React.useState(null)
   const [file, setfile] = React.useState(null)
@@ -120,10 +126,12 @@ export default function SignUp() {
     let file = e.target.files
     let img_url = createObjectURL(file[0])
     setIcon(img_url);
-    setfile(file[0])
+    let newfile = new File([file[0]], "./myphoto.jpg")
+    setfile(newfile)
+    console.log(newfile)
   }
-  
- 
+
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -153,14 +161,13 @@ export default function SignUp() {
                 fullWidth
                 label="ユーザー名"
                 type="user"
-                inputRef={register({required:true})}
-                // inputRef={register({
-                //   required: 'ユーザー名を入力してください',
-                //   minLength: {
-                //     value: 1,
-                //     message: '１文字以上入力してください',
-                //   },
-                // })}
+                inputRef={register({
+                  required: 'ユーザー名を入力してください',
+                  minLength: {
+                    value: 1,
+                    message: '１文字以上入力してください',
+                  },
+                })}
               />
               {errors.userName && (
                 <p className={classes.err_color}>{errors.userName.message}</p>
@@ -190,15 +197,14 @@ export default function SignUp() {
                 fullWidth
                 name="password"
                 label="パスワード"
-                inputRef={register({required:true})}
-                // inputRef={register({
-                //   required: 'パスワードを入力してください',
-                //   pattern: {
-                //     value: passReg,
-                //     message:
-                //       '6文字以上かつ英数字、小文字、大文字を1つずつ含む必要があります',
-                //   },
-                // })}
+                inputRef={register({
+                  required: 'パスワードを入力してください',
+                  pattern: {
+                    value: passReg,
+                    message:
+                      '6文字以上かつ英数字、小文字、大文字を1つずつ含む必要があります',
+                  },
+                })}
               />
               {errors.password && (
                 <p className={classes.err_color}>{errors.password.message}</p>
@@ -230,7 +236,6 @@ export default function SignUp() {
           </Grid>
           <div>
             <Button
-              type="submit"
               className={classes.Iconbutton}
               color="primary"
               style={{ backgroundColor: '#004d40' }}
@@ -262,7 +267,7 @@ export default function SignUp() {
                       onChange={handleChengefile}
                       accept="image/*"
                     />
-                    <div id="preview"></div>
+                    <Button onClick={handleClose}>閉じる</Button>
                   </div>
                 </div>
               </Fade>
