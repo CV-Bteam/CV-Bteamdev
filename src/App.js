@@ -48,7 +48,7 @@ function App() {
               component={List}
             />
             <Route
-              exact path="/detail"
+              exact path="/detail/:id"
               component={Detail}
             />
           </Switch>
