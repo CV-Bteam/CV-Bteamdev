@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -15,6 +15,8 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { useHistory } from 'react-router-dom'
+import { AuthContext } from '../../Auth/AuthServise'
+
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -70,6 +72,8 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const classes = useStyles();
   const history = useHistory()
+  const user = useContext(AuthContext);
+
   const { register, handleSubmit, errors, getValues } = useForm({});
   const [err, set_err] = useState();
   const submit = async (data) => {

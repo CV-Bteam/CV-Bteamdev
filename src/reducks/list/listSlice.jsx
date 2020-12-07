@@ -1,15 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const slice = createSlice({
-  name: "list",
+const listSlice = createSlice({
+  name: "lists",
   initialState: [],
   reducers: {
-    addList: (state, action) => [...state, action.payload],
-    deleteList: (state, action) => state.filter(el => el.id !== action.payload),
-  },
-  extraReducers: {
-    
+    addList: (state, action) =>[...action.payload]
   }
 });
 
-export default slice;
+export default listSlice;
