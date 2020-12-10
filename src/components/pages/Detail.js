@@ -8,6 +8,7 @@ import Container from '@material-ui/core/Container';
 import { Card, CardMedia } from '@material-ui/core';
 import firebase from "firebase";
 import "firebase/storage";
+import {useSelector} from 'react-redux'
 
 const usestyle = makeStyles((theme) => ({
   spacing: {
@@ -82,17 +83,25 @@ const usestyle = makeStyles((theme) => ({
   }
 }))
 
- 
-
-           
-
-
-
-function Detail() {
-  useEffect(()=>{
-    firebase.firestore().collection('/messages').onSnapshot((snapshot)=>(snapshot.docs.map((doc)=>console.log(doc.data()))))
-   },[])
+function Detail(docid) {
   const classes = usestyle()
+
+
+   const datas = useSelector((state) => state.lists)
+   console.log(datas)
+
+   console.log(window.location.pathname )
+
+   const formid = datas.map((e) => e.documentID )
+   console.log(formid)
+
+  const data = formid.find(element => "/detail/"+element === window.location.pathname)
+  
+  const data2= datas.find(element => element.documentID === data)
+
+  console.log(data2)
+
+    
   return (
     <Container component='main'>
       <CssBaseline />
@@ -102,17 +111,17 @@ function Detail() {
         </Typography>
         <Grid container className={classes.flex1}>
           <Grid item xs={6} className={classes.flex2}>
-            <h2 className={classes.title}>本のタイトル</h2>
+  <h2 className={classes.title}>{data2?.title}</h2>
             <Card className={classes.root}>
               <CardMedia
                 component='img'
-                // image={img}
+                image={"datas.url"}
                 className={classes.img}
               />
             </Card>
           </Grid>
           <Grid item xs={6} className={classes.form1}>
-            <p className={classes.paragraph}>アレクサンドロス3世（ギリシア語: Ἀλέξανδρος Γ'、紀元前356年7月20日 - 紀元前323年6月10日）、通称アレクサンドロス大王（ギリシア語: Ἀλέξανδρος ὁ Μέγας）は、古代ギリシャのアルゲアス朝マケドニア王国のバシレウス(王)（在位：紀元前336年 - 紀元前323年）である。また、コリントス同盟（ヘラス同盟）の盟主、エジプトのファラオも兼ねた。</p>
+  <p className={classes.paragraph}>{data2?.text}</p>
           </Grid>
         </Grid>
         <form className={classes.form2} >
