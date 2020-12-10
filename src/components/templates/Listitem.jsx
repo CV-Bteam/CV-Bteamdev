@@ -4,11 +4,9 @@ import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSelector } from 'react-redux';
 
-const Listitem = ({ color, docid }) => {
+const Listitem = ({ color, data }) => {
   const listitems = useSelector((state) => state.lists);
-  // console.log(listitems)
-  const listitem = listitems.find((e) => e.documentID === docid);
-  console.log(listitem);
+  const listitem = listitems.find((e) => e.documentID === data.documentID);
   const use_style = makeStyles({
     container: {
       fontSize: '16px',
@@ -28,8 +26,8 @@ const Listitem = ({ color, docid }) => {
   return (
     <div className={classes.container}>
       <h4>title</h4>
-      <Link className={classes.title} to={`/detail/${docid}`}>
-        {listitem?.title}
+      <Link className={classes.title} to={`/detail/${listitem.documentID}`}>
+        {listitem.title}
       </Link>
       <div>
         <Rating readOnly />

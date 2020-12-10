@@ -5,8 +5,7 @@ import Container from '@material-ui/core/Container';
 import Listitem from '../templates/Listitem';
 import { useSelector } from 'react-redux';
 import Pagenation from '@material-ui/lab/Pagination';
-import { useEffect } from 'react';
-import firebase from '../../firebase/firebase';
+import { Link } from 'react-router-dom';
 
 const use_style = makeStyles((theme) => ({
   paper: {
@@ -26,7 +25,6 @@ export default function List() {
   const BLUE = '#008080';
   const MAX = 9;
   const classes = use_style();
-  const [idurl, setIdUrl] = useState([]);
   const list = useSelector((state) => state.lists);
   const sliceByNumber = (array, number) => {
     const length = Math.ceil(array.length / number);
@@ -36,34 +34,23 @@ export default function List() {
   };
   const tenList = sliceByNumber(list, MAX);
   const listcount = Math.ceil(list.length / 10);
-  // console.log(listcount)
   const pageChange = (e, value) => {
     set_pagenumber(value - 1);
   };
 
-  useEffect(() => {
-    firebase
-      .firestore()
-      .collection('/messages')
-      .onSnapshot((snapshot) => {
-        const docid = snapshot.docs.map((doc) => {
-          return doc.id;
-        });
-        setIdUrl(docid);
-      });
-  }, []);
-
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
+      <Link to={"/form"}>フォーム</Link>
       <div className={classes.paper}>
         <div className={classes.form}>
-          {idurl.map((docid, index) =>
+          {tenList[pagenumber]?.map((data, index) =>
             index % 2 !== 0 ? (
-              <Listitem color={RED} docid={docid} key={docid} />
+              <Listitem color={RED} data={data} key={data.documentID} />
             ) : (
-              <Listitem color={BLUE} docid={docid} key={docid} />
+              <Listitem color={BLUE} data={data} key={data.documentID} />
             )
+            
           )}
         </div>
         <Pagenation count={listcount} onChange={pageChange} color="primary" />

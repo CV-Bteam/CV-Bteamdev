@@ -15,6 +15,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useForm } from 'react-hook-form';
 import firebase from '../../firebase/firebase';
+import {useSelector} from 'react-redux'
 
 const use_style = makeStyles((theme) => ({
   paper: {
@@ -48,6 +49,9 @@ export default function SignIn({history}) {
     if (user) {
     return <Redirect to='/' />
   }
+  
+
+  
   const submit =async(data) => {
     await firebase.auth().signInWithEmailAndPassword(data.email, data.password)
       .then(() => { history.push('/')}, err => {
