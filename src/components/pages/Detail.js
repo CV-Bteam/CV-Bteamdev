@@ -102,6 +102,7 @@ function Detail(docid) {
   console.log(data2)
 
     
+  
   return (
     <Container component='main'>
       <CssBaseline />
