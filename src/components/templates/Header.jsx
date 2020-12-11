@@ -20,6 +20,8 @@ import 'firebase/auth';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import { SettingsRemoteOutlined } from '@material-ui/icons';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -105,11 +107,14 @@ export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [open, setOpen] = React.useState(false);
-
+  
+  const [url,setUrl]=React.useState("")
   const handleOpen = () => {
     setOpen(true);
   };
 
+  const user = firebase.auth().currentUser;
+  
   const handleClose = () => {
     setOpen(false);
   };
@@ -134,6 +139,11 @@ export default function PrimarySearchAppBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const ref = firebase.storage().ref().child('CMBW7634.jpeg').getDownloadURL().then((url)=>{
+    setUrl(url)
+  })
+
+  
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -146,6 +156,7 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
+      
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -160,17 +171,15 @@ export default function PrimarySearchAppBar() {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 id="transition-modal-title">　Icon登録</h2>
-            <p id="transition-modal-description">画像を登録してください</p>
+             <h1>{user && user.email}</h1>
+             <img src={url} width="300" height="200"/>
           </div>
         </Fade>
       </Modal>
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-
+      <MenuItem onClick={handleOpen}>My account</MenuItem>
       <MenuItem onClick= {handleMenuClose} ><NavLink to='/signin' style={{textDecoration:'none',color: 'rgb(33,33,33)'}}>Signin</NavLink></MenuItem>
       <MenuItem onClick={() => firebase.auth().signOut()}>Logout</MenuItem>
-      <MenuItem onClick={handleOpen}>Icon login</MenuItem>
     </Menu>
   );
 
