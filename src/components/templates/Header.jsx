@@ -24,6 +24,7 @@ import { SettingsRemoteOutlined } from '@material-ui/icons';
 
 
 
+
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
@@ -101,6 +102,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(15, 15, 3),
   },
 }));
+
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
