@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -6,9 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Card, CardMedia } from '@material-ui/core';
-import firebase from "firebase";
-import "firebase/storage";
-import {useSelector} from 'react-redux'
+import firebase from 'firebase';
+import 'firebase/storage';
+import { useSelector } from 'react-redux';
 
 const usestyle = makeStyles((theme) => ({
   spacing: {
@@ -18,7 +18,7 @@ const usestyle = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'column',
-    marginTop: theme.spacing(5)
+    marginTop: theme.spacing(5),
   },
   form1: {
     width: '50%',
@@ -26,19 +26,19 @@ const usestyle = makeStyles((theme) => ({
     backgroundColor: 'lightgrey',
     padding: '40px',
     zIndex: '10',
-    borderRadius: '50%'
+    borderRadius: '50%',
+    height: '50%',
   },
   form2: {
     width: '70%',
     marginTop: theme.spacing(3),
-
   },
   text1: {
     marginTop: theme.spacing(2),
-    width: '100%'
+    width: '100%',
   },
   text2: {
-    width: '100%'
+    width: '100%',
   },
   flex1: {
     display: 'flex',
@@ -54,21 +54,20 @@ const usestyle = makeStyles((theme) => ({
   root: {
     width: '100%',
     boxShadow: 'initial',
-    backgroundColor: 'initial'
+    backgroundColor: 'initial',
   },
   img: {
     width: '50%',
-    margin: '0 auto'
+    margin: '0 auto',
   },
   title: {
     textAlign: 'center',
-
   },
   paragraph: {
     fontSize: 'large',
     lineHeight: '2.5',
     fontFamily: '-apple-system',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   btn: {
     display: 'flex',
@@ -79,72 +78,64 @@ const usestyle = makeStyles((theme) => ({
     border: 'none',
     padding: '10px 40px',
     marginTop: '30px',
-    borderRadius: '5px'
-  }
-}))
+    borderRadius: '5px',
+  },
+}));
 
-function Detail(docid) {
-  const classes = usestyle()
+function Detail() {
+  const classes = usestyle();
 
+  const datas = useSelector((state) => state.lists);
 
-   const datas = useSelector((state) => state.lists)
-   console.log(datas)
+  const formid = datas.map((e) => e.documentID);
 
-   console.log(window.location.pathname )
+  const data = formid.find(
+    (element) => '/detail/' + element === window.location.pathname
+  );
 
-   const formid = datas.map((e) => e.documentID )
-   console.log(formid)
+  const data2 = datas.find((element) => element.documentID === data);
 
-  const data = formid.find(element => "/detail/"+element === window.location.pathname)
-  
-  const data2= datas.find(element => element.documentID === data)
+  const url = `"${data2?.url}"`;
+  const ofurl = url.split('/');
+  const bookurl = `https://images-na.ssl-images-amazon.com/images/P/${ofurl[5]}.09.THUMBZZZ`;
 
-  console.log(data2)
-
-    
-  
   return (
-    <Container component='main'>
+    <Container component="main">
       <CssBaseline />
       <div className={classes.paper}>
-        <Typography component='h1' variant='h3'>
+        <Typography component="h1" variant="h3">
           詳細
         </Typography>
         <Grid container className={classes.flex1}>
           <Grid item xs={6} className={classes.flex2}>
-  <h2 className={classes.title}>{data2?.title}</h2>
+            <h2 className={classes.title}>{data2?.title}</h2>
             <Card className={classes.root}>
               <CardMedia
-                component='img'
-                image={"datas.url"}
+                component="img"
+                image={bookurl}
                 className={classes.img}
               />
             </Card>
           </Grid>
           <Grid item xs={6} className={classes.form1}>
-  <p className={classes.paragraph}>{data2?.text}</p>
+            <p className={classes.paragraph}>{data2?.text}</p>
           </Grid>
         </Grid>
-        <form className={classes.form2} >
+        <form className={classes.form2}>
           <TextField
             className={classes.text2}
-            label='コメント'
-            variant='outlined'
-            rows='4'
+            label="コメント"
+            variant="outlined"
+            rows="4"
             multiline
           />
-          <button
-            className={classes.btn}
-            justify='center'
-          >
+          <button className={classes.btn} justify="center">
             コメントする
-        </button>
+          </button>
         </form>
       </div>
     </Container>
-  )
+  );
 }
 
-
-
-export default Detail
+export default Detail;
