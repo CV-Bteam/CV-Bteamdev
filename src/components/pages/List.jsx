@@ -5,7 +5,7 @@ import Container from '@material-ui/core/Container';
 import Listitem from '../templates/Listitem';
 import { useSelector } from 'react-redux';
 import Pagenation from '@material-ui/lab/Pagination';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 const use_style = makeStyles((theme) => ({
   paper: {
     display: 'flex',
@@ -16,6 +16,10 @@ const use_style = makeStyles((theme) => ({
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
+  center: {
+    display: "flex",
+    justifyContent: "center"
+  }
 }));
 
 export default function List() {
@@ -42,14 +46,13 @@ export default function List() {
       <CssBaseline />
       <div className={classes.paper}>
         <div className={classes.form}>
-          {tenList[pagenumber]?.map((data, index) =>
+          {tenList[pagenumber] ? tenList[pagenumber].map((data, index) =>
             index % 2 !== 0 ? (
               <Listitem color={RED} data={data} key={data.documentID} />
             ) : (
-              <Listitem color={BLUE} data={data} key={data.documentID} />
-            )
-            
-          )}
+                <Listitem color={BLUE} data={data} key={data.documentID} />
+              )
+          ) : <div className={classes.center}><CircularProgress /></div>}
         </div>
         <Pagenation count={listcount} onChange={pageChange} color="primary" />
       </div>
