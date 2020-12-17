@@ -5,7 +5,6 @@ import Container from '@material-ui/core/Container';
 import Listitem from '../templates/Listitem';
 import { useSelector } from 'react-redux';
 import Pagenation from '@material-ui/lab/Pagination';
-import { Link } from 'react-router-dom';
 
 const use_style = makeStyles((theme) => ({
   paper: {
@@ -41,7 +40,6 @@ export default function List() {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <Link to={"/form"}>フォーム</Link>
       <div className={classes.paper}>
         <div className={classes.form}>
           {tenList[pagenumber]?.map((data, index) =>
