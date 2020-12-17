@@ -9,7 +9,7 @@ import { AuthProvider } from './Auth/AuthServise'
 import List from './components/pages/List'
 import Detail from "./components/pages/Detail"
 import { fireStore } from "./firebase/firebase"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import listSlice from "./reducks/list/listSlice"
 function App() {
   const dispatch = useDispatch()

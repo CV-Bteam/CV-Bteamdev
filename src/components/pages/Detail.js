@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -6,8 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Card, CardMedia } from '@material-ui/core';
-import firebase from "firebase";
-import "firebase/storage";
 import {useSelector} from 'react-redux'
 
 const usestyle = makeStyles((theme) => ({
@@ -31,7 +29,6 @@ const usestyle = makeStyles((theme) => ({
   form2: {
     width: '70%',
     marginTop: theme.spacing(3),
-
   },
   text1: {
     marginTop: theme.spacing(2),
@@ -85,21 +82,10 @@ const usestyle = makeStyles((theme) => ({
 
 function Detail(docid) {
   const classes = usestyle()
-
-
    const datas = useSelector((state) => state.lists)
-   console.log(datas)
-
-   console.log(window.location.pathname )
-
    const formid = datas.map((e) => e.documentID )
-   console.log(formid)
-
   const data = formid.find(element => "/detail/"+element === window.location.pathname)
-  
   const data2= datas.find(element => element.documentID === data)
-
-  console.log(data2)
 
     
   
@@ -112,7 +98,7 @@ function Detail(docid) {
         </Typography>
         <Grid container className={classes.flex1}>
           <Grid item xs={6} className={classes.flex2}>
-  <h2 className={classes.title}>{data2?.title}</h2>
+          <h2 className={classes.title}>{data2?.title}</h2>
             <Card className={classes.root}>
               <CardMedia
                 component='img'
@@ -122,7 +108,7 @@ function Detail(docid) {
             </Card>
           </Grid>
           <Grid item xs={6} className={classes.form1}>
-  <p className={classes.paragraph}>{data2?.text}</p>
+            <p className={classes.paragraph}>{data2?.text}</p>
           </Grid>
         </Grid>
         <form className={classes.form2} >

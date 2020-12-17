@@ -10,10 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useForm } from 'react-hook-form';
-import firebase, { fireStorage } from '../../firebase/firebase';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
+import firebase from '../../firebase/firebase';
 import { useHistory } from 'react-router-dom'
 import { AuthContext } from '../../Auth/AuthServise'
 
@@ -38,33 +35,6 @@ const useStyles = makeStyles((theme) => ({
   },
   err_color: {
     color: 'red',
-  },
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  modalpaper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(1, 10, 10),
-  },
-  Iconbutton: {
-    color: 'white',
-    fontSize: '100%',
-    width: '100%',
-    margin: theme.spacing(3, 0, 1),
-    padding: theme.spacing(1, 4, 1),
-    borderRadius: 5,
-    boxShadow: theme.shadows[2],
-  },
-  icon: {
-    width: '300px',
-    height: '300px',
-    marginTop: '100px',
-    marginLeft: '100px',
-    border: '1px solid #000',
   },
 }));
 
@@ -92,58 +62,17 @@ export default function SignUp() {
         .auth()
         .createUserWithEmailAndPassword(data.email, data.password)
         .then(({ user }) => {
-          if (file === null) {
             user.updateProfile({
               displayName: data.userName,
             });
             history.push('/')
-          } else {
-            fireStorage.ref().child(user.uid).put(file).then((snapshot) => {
-              snapshot.ref.getDownloadURL()
-            }).then((downloadURL) => {
-              user.updateProfile({
-                displayName: data.userName,
-                photoURL: downloadURL,
-              });
-              history.push('/')
-
-            }).catch((er) => {
-              console.log(er)
-            })
-          }
-        });
-    }
-  };
+          })}};
   const passReg = new RegExp(
     '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})'
   );
   const mailReg = new RegExp(
     '^([a-zA-Z0-9])+([a-zA-Z0-9-])*@([a-zA-Z0-9.-])+([a-zA-Z0-9._-]+)+$'
   );
-
-  const createObjectURL =
-    (window.URL || window.webkitURL).createObjectURL || window.createObjectURL;
-  const [open, setOpen] = React.useState(false);
-  const [Icon, setIcon] = React.useState(null)
-  const [file, setfile] = React.useState(null)
-  const handleChengefile = (e) => {
-    let file = e.target.files
-    let img_url = createObjectURL(file[0])
-    setIcon(img_url);
-    let newfile = new File([file[0]], "./myphoto.jpg")
-    setfile(newfile)
-    console.log(newfile)
-  }
-
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
 
   return (
     <Container maxWidth="xs">
@@ -238,45 +167,6 @@ export default function SignUp() {
               )}
             </Grid>
           </Grid>
-          <div>
-            <Button
-              className={classes.Iconbutton}
-              color="primary"
-              style={{ backgroundColor: '#004d40' }}
-              onClick={handleOpen}
-            >
-              {' '}
-              Icon Upload
-            </Button>
-            <Modal
-              aria-labelledby="transition-modal-title"
-              aria-describedby="transition-modal-description"
-              className={classes.modal}
-              open={open}
-              onClose={handleClose}
-              closeAfterTransition
-              BackdropComponent={Backdrop}
-              BackdropProps={{
-                timeout: 500,
-              }}
-            >
-              <Fade in={open}>
-                <div className={classes.modalpaper}>
-                  <div id="transition-modal-title">
-                    <img src={Icon} className={classes.icon} />
-                    <input
-                      type="file"
-                      id="example"
-                      multiple
-                      onChange={handleChengefile}
-                      accept="image/*"
-                    />
-                    <Button onClick={handleClose}>閉じる</Button>
-                  </div>
-                </div>
-              </Fade>
-            </Modal>
-          </div>
           <Button
             type="submit"
             fullWidth
