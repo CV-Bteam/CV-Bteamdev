@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,8 +12,6 @@ import Container from '@material-ui/core/Container';
 import { useForm } from 'react-hook-form';
 import firebase from '../../firebase/firebase';
 import { useHistory } from 'react-router-dom'
-import { AuthContext } from '../../Auth/AuthServise'
-
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -42,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
 export default function SignUp() {
   const classes = useStyles();
   const history = useHistory()
-  const user = useContext(AuthContext);
 
   const { register, handleSubmit, errors, getValues } = useForm({});
   const [err, set_err] = useState();
@@ -62,11 +59,13 @@ export default function SignUp() {
         .auth()
         .createUserWithEmailAndPassword(data.email, data.password)
         .then(({ user }) => {
-            user.updateProfile({
-              displayName: data.userName,
-            });
-            history.push('/')
-          })}};
+          user.updateProfile({
+            displayName: data.userName,
+          });
+          history.push('/')
+        })
+    }
+  };
   const passReg = new RegExp(
     '^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})'
   );

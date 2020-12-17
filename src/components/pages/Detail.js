@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -6,8 +6,12 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Card, CardMedia } from '@material-ui/core';
-import {useSelector} from 'react-redux'
-
+import { useSelector } from 'react-redux'
+import { useParams } from "react-router-dom"
+import { useForm } from "react-hook-form"
+import firebase from "../../firebase/firebase"
+import { AuthContext } from "../../Auth/AuthServise"
+import Comments from "../../components/templates/Comments"
 const usestyle = makeStyles((theme) => ({
   spacing: {
     spacing: 8,
@@ -80,15 +84,23 @@ const usestyle = makeStyles((theme) => ({
   }
 }))
 
-function Detail(docid) {
+function Detail() {
+  const user = useContext(AuthContext)
+  const { register, handleSubmit, reset } = useForm()
   const classes = usestyle()
-   const datas = useSelector((state) => state.lists)
-   const formid = datas.map((e) => e.documentID )
-  const data = formid.find(element => "/detail/"+element === window.location.pathname)
-  const data2= datas.find(element => element.documentID === data)
-
-    
-  
+  const { id } = useParams()
+  const lists = useSelector(state => state.lists)
+  const data = lists.find(list => list.documentID === id)
+  const submit = (data) => {
+    const date = new Date()
+    firebase.firestore().collection('comments').add({
+      comment: data.comment,
+      bookid: id,
+      user: user.uid,
+      created_at: date
+    });
+    reset()
+  }
   return (
     <Container component='main'>
       <CssBaseline />
@@ -98,7 +110,7 @@ function Detail(docid) {
         </Typography>
         <Grid container className={classes.flex1}>
           <Grid item xs={6} className={classes.flex2}>
-          <h2 className={classes.title}>{data2?.title}</h2>
+            <h2 className={classes.title}>{data?.title}</h2>
             <Card className={classes.root}>
               <CardMedia
                 component='img'
@@ -108,24 +120,32 @@ function Detail(docid) {
             </Card>
           </Grid>
           <Grid item xs={6} className={classes.form1}>
-            <p className={classes.paragraph}>{data2?.text}</p>
+            <p className={classes.paragraph}>{data?.text}</p>
           </Grid>
         </Grid>
-        <form className={classes.form2} >
-          <TextField
-            className={classes.text2}
-            label='コメント'
-            variant='outlined'
-            rows='4'
-            multiline
-          />
-          <button
-            className={classes.btn}
-            justify='center'
-          >
-            コメントする
+        {user &&
+          <>
+            <form onSubmit={handleSubmit(submit)} className={classes.form2} >
+              <TextField
+                name="comment"
+                className={classes.text2}
+                label='コメント'
+                variant='outlined'
+                rows='4'
+                multiline
+                inputRef={register({ required: true })}
+              />
+              <button
+                type="submit"
+                className={classes.btn}
+                justify='center'
+              >
+                コメントする
         </button>
-        </form>
+            </form>
+            <Comments bookid={id} />
+          </>
+        }
       </div>
     </Container>
   )
