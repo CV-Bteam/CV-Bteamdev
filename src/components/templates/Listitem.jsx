@@ -1,39 +1,42 @@
 import React from 'react';
 import Rating from '@material-ui/lab/Rating';
-import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import { useSelector } from 'react-redux';
+import { makeStyles } from "@material-ui/core/styles"
+import firebase from '../../firebase/firebase'
 
-const Listitem = ({ color, data }) => {
-  const listitems = useSelector((state) => state.lists);
-  const listitem = listitems.find((e) => e.documentID === data.documentID);
+const Listitem = ({listitem,color}) => {
   const use_style = makeStyles({
-    container: {
-      fontSize: '16px',
+    container:{
+      fontSize: "16px",
       backgroundColor: color,
-      display: 'flex',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-    },
-    title: {
-      textDecoration: 'none',
-      color: 'black'
-    }
-  });
+      display: "flex",
+      justifyContent: "space-around",
+      alignItems: "center"
+    }})
 
-  const classes = use_style();
+  const classes = use_style()
+
+  const [ListItem, setListItem]
+
+  firebase
+    .firestore()
+    .collection('listitem')
+    .orderBy("timestamp", "desc")
+    .onSnapshot((snapshot) => {
+    const newTodos =  snapshot.docs.map((listitem) => ({
+      id: listitem.id,
+      ListItem: listitem.data().ListItem,
+      }))
+      setListItem(newTodos)
+    })
+    console.log(listitem)
 
   return (
     <div className={classes.container}>
       <h4>title</h4>
-      <Link className={classes.title} to={`/detail/${listitem.documentID}`}>
-        {listitem.title}
-      </Link>
-      <div>
-        <Rating readOnly />
-      </div>
+      <p>{listitem.title}</p>
+      <div><Rating readOnly /></div>
     </div>
-  );
-};
+  )
+}
 
-export default Listitem;
+export default Listitem
