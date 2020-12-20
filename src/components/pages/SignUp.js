@@ -93,13 +93,7 @@ export default function SignUp() {
                 fullWidth
                 label="ユーザー名"
                 type="user"
-                inputRef={register({
-                  required: 'ユーザー名を入力してください',
-                  minLength: {
-                    value: 1,
-                    message: '１文字以上入力してください',
-                  },
-                })}
+                inputRef={register({required: 'ユーザー名を入力してください'})}
               />
               {errors.userName && (
                 <p className={classes.err_color}>{errors.userName.message}</p>

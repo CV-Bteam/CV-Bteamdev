@@ -36,7 +36,7 @@ export default function List() {
       .map((_, i) => array.slice(i * number, (i + 1) * number));
   };
   const tenList = sliceByNumber(list, MAX);
-  const listcount = Math.ceil(list.length / 10);
+  const listcount = Math.ceil(list.length / MAX);
   const pageChange = (e, value) => {
     set_pagenumber(value - 1);
   };

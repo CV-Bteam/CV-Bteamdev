@@ -133,7 +133,12 @@ function Detail() {
                 variant='outlined'
                 rows='4'
                 multiline
-                inputRef={register({ required: true })}
+                inputRef={register({
+                  required: "入力して下さい",
+                  pattern: {
+                    
+                  },
+                })}
               />
               <button
                 type="submit"

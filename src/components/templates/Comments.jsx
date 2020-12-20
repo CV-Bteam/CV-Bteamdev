@@ -1,10 +1,10 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { fireStore } from "../../firebase/firebase"
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
-
+import { AuthContext} from "../../Auth/AuthServise"
 
 const use_style = makeStyles({
   comments: {
@@ -21,6 +21,7 @@ const use_style = makeStyles({
 const Comments = ({ bookid }) => {
   const classes = use_style()
   const [comments, set_comments] = useState()
+  const user=useContext(AuthContext)
   useEffect(() => {
     fireStore.collection("comments").where("bookid", "==", bookid).onSnapshot((snapshot) => {
       const comments = snapshot.docs.map((doc) => {
@@ -32,6 +33,7 @@ const Comments = ({ bookid }) => {
       set_comments("")
     }
   }, [bookid])
+  console.log(user.uid)
   const comment_delete = (id) => {
     fireStore.collection("comments").doc(id).delete()
   }
@@ -44,9 +46,9 @@ const Comments = ({ bookid }) => {
         return (
           <div key={comment.commentid} className={classes.container}>
             <p>{comment.comment}</p>
-            <IconButton onClick={() => comment_delete(comment.commentid)} aria-label="delete">
+            {user.uid===comment.user&&<IconButton onClick={() => comment_delete(comment.commentid)} aria-label="delete">
               <DeleteIcon />
-            </IconButton>
+            </IconButton>}
           </div>
         )
       })}
