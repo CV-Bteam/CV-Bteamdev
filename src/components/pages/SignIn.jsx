@@ -1,7 +1,7 @@
 
-import React, {useContext,useState} from 'react';
-import {AuthContext} from '../../Auth/AuthServise';
-import {Redirect} from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { AuthContext } from '../../Auth/AuthServise';
+import { Redirect } from 'react-router-dom';
 import { Link } from "react-router-dom"
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -39,28 +39,28 @@ const use_style = makeStyles((theme) => ({
 }));
 
 
-export default function SignIn({history}) {
+export default function SignIn({ history }) {
   const [err, set_err] = useState();
   const classes = use_style();
-  const {register,errors,handleSubmit} = useForm();
+  const { register, errors, handleSubmit } = useForm();
   const user = useContext(AuthContext)
-    if (user) {
+  if (user) {
     return <Redirect to='/' />
   }
-  
 
-  
-  const submit =async(data) => {
+
+
+  const submit = async (data) => {
     await firebase.auth().signInWithEmailAndPassword(data.email, data.password)
-      .then(() => { history.push('/')}, err => {
-        switch(err.code){
+      .then(() => { history.push('/') }, err => {
+        switch (err.code) {
           case 'auth/user-not-found':
-            set_err('メールアドレスが違います') 
+            set_err('メールアドレスが違います')
             break;
           case 'auth/wrong-password':
-            set_err('パスワードが違います')  
+            set_err('パスワードが違います')
             break;
-          default:console.log(err.code)
+          default: console.log(err.code)
         }
       });
   }
@@ -95,7 +95,7 @@ export default function SignIn({history}) {
             name="password"
             inputRef={register({ required: true })}
           />
-          {errors.password && <p className={classes.color}>パスワードを入力してください</p> }      
+          {errors.password && <p className={classes.color}>パスワードを入力してください</p>}
           {/* <FormControlLabel
             control={<Checkbox value="remember" color="secondary" />}
             label="ログイン状態を保存する"
@@ -105,7 +105,7 @@ export default function SignIn({history}) {
             fullWidth
             variant="contained"
             color="primary"
-            style={{ backgroundColor:"#004d40"}}
+            style={{ backgroundColor: "#004d40" }}
             className={classes.submit}
           >
             SIGN IN

@@ -5,7 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import firebase from 'firebase';
 import 'firebase/auth';
-import { Link,useHistory } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import { AuthContext } from '../../Auth/AuthServise';
 import Button from '@material-ui/core/Button';
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const user = useContext(AuthContext)
-  const history=useHistory()
+  const history = useHistory()
   const logout = () => {
     firebase.auth().signOut()
   }
@@ -51,13 +51,13 @@ export default function PrimarySearchAppBar() {
         style={{ color: '#e0f2f1', backgroundColor: '#004d40' }}
       >
         <Toolbar className={classes.flex}>
-          <Typography onClick={()=>{history.push("/")}} className={classes.title} variant="h6" noWrap>
+          <Typography onClick={() => { history.push("/") }} className={classes.title} variant="h6" noWrap>
             チームB
           </Typography>
           <div className={classes.flex}>
             {user ?
               <>
-              <Button className={classes.button +" "+ classes.right} onClick={()=>{history.push("/form")}}>投稿</Button>
+                <Button className={classes.button + " " + classes.right} onClick={() => { history.push("/form") }}>投稿</Button>
                 <h3 className={classes.right}>{user.displayName}</h3>
                 <Button className={classes.button} onClick={logout}>logout</Button>
               </>
