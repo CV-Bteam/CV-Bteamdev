@@ -101,6 +101,10 @@ function Detail(docid) {
 
   console.log(data2)
 
+  const url = `"${data2?.url}"`;
+  const ofurl = url.split('/');
+  const bookurl = `https://images-na.ssl-images-amazon.com/images/P/${ofurl[5]}.09.THUMBZZZ`;
+
     
   
   return (
@@ -116,7 +120,7 @@ function Detail(docid) {
             <Card className={classes.root}>
               <CardMedia
                 component='img'
-                image={"datas.url"}
+                image={bookurl}
                 className={classes.img}
               />
             </Card>
