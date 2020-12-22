@@ -86,6 +86,7 @@ const usestyle = makeStyles((theme) => ({
 }))
 
 function Detail() {
+
   const user = useContext(AuthContext)
   const { register, handleSubmit, reset } = useForm()
   const classes = usestyle()
@@ -102,14 +103,14 @@ function Detail() {
     });
     reset()
   }
-  
+
   const url = data?.url;
   const startIndex = url?.indexOf("/dp/") + 4;
   const startIndex2 = url?.indexOf("/product/") + 9;
   const imgNo = url?.substring(startIndex, startIndex + 10);
   const imgNo2 = url?.substring(startIndex2, startIndex2 + 10);
   const imgreg = new RegExp("[A-Z0-9]{10}");
-  let src =NoImage
+  let src = NoImage
   if (imgNo?.match(imgreg) !== null) {
     src = `https://images-na.ssl-images-amazon.com/images/P/${imgNo}.09.LZZZZZZZ`;
   } else if (imgNo2?.match(imgreg) !== null) {
@@ -152,7 +153,7 @@ function Detail() {
                 inputRef={register({
                   required: "入力して下さい",
                   pattern: {
-                    
+                    value: /\S/,
                   },
                 })}
               />
