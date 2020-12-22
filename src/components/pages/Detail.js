@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form"
 import firebase from "../../firebase/firebase"
 import { AuthContext } from "../../Auth/AuthServise"
 import Comments from "../../components/templates/Comments"
+import NoImage from "../../image/cvs.jpg"
 const usestyle = makeStyles((theme) => ({
   spacing: {
     spacing: 8,
@@ -101,6 +102,21 @@ function Detail() {
     });
     reset()
   }
+  
+  const url = data?.url;
+  const startIndex = url?.indexOf("/dp/") + 4;
+  const startIndex2 = url?.indexOf("/product/") + 9;
+  const imgNo = url?.substring(startIndex, startIndex + 10);
+  const imgNo2 = url?.substring(startIndex2, startIndex2 + 10);
+  const imgreg = new RegExp("[A-Z0-9]{10}");
+  let src =NoImage
+  if (imgNo?.match(imgreg) !== null) {
+    src = `https://images-na.ssl-images-amazon.com/images/P/${imgNo}.09.LZZZZZZZ`;
+  } else if (imgNo2?.match(imgreg) !== null) {
+    src = `https://images-na.ssl-images-amazon.com/images/P/${imgNo2}.09.LZZZZZZZ`;
+  } else {
+    src = NoImage;
+  }
   return (
     <Container component='main'>
       <CssBaseline />
@@ -114,7 +130,7 @@ function Detail() {
             <Card className={classes.root}>
               <CardMedia
                 component='img'
-                image={"datas.url"}
+                image={src}
                 className={classes.img}
               />
             </Card>
