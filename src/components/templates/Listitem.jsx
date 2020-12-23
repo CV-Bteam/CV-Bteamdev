@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useState}from 'react';
 import Rating from '@material-ui/lab/Rating';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -22,9 +22,11 @@ const Listitem = ({ color, data }) => {
   });
 
   const classes = use_style();
-
+ 
   return (
-    <div className={classes.container}>
+  
+    <div className={classes.container} >
+       
       <h4>title</h4>
       <Link className={classes.title} to={`/detail/${listitem.documentID}`}>
         {listitem.title}
@@ -32,7 +34,9 @@ const Listitem = ({ color, data }) => {
       <div>
         <Rating readOnly />
       </div>
+      
     </div>
+    
   );
 };
 
