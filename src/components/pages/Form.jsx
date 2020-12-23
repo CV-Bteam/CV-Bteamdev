@@ -5,10 +5,9 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useForm } from 'react-hook-form';
-import firebase from '../../firebase/firebase'
-import { Controller } from "react-hook-form"
-import Rating from "@material-ui/lab/Rating"
-
+import firebase from '../../firebase/firebase';
+import { Controller } from 'react-hook-form';
+import Rating from '@material-ui/lab/Rating';
 
 const use_style = makeStyles((theme) => ({
   paper: {
@@ -37,6 +36,7 @@ export default function Form() {
       text: data.detail,
       title: data.title,
       url: data.url,
+      rating: data.reviews,
     });
   };
 
@@ -71,8 +71,11 @@ export default function Form() {
             inputRef={register({ required: true })}
           />
 
-          {errors.url && <p className={classes.color}>本のURLを入力してください</p>}
+          {errors.url && (
+            <p className={classes.color}>本のURLを入力してください</p>
+          )}
           <Controller
+            type="rating"
             name="reviews"
             control={control}
             defaultValue={2.5}
@@ -107,6 +110,4 @@ export default function Form() {
       </div>
     </Container>
   );
-
 }
-
