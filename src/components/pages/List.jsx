@@ -5,8 +5,7 @@ import Container from '@material-ui/core/Container';
 import Listitem from '../templates/Listitem';
 import { useSelector } from 'react-redux';
 import Pagenation from '@material-ui/lab/Pagination';
-import { Link } from 'react-router-dom';
-
+import CircularProgress from '@material-ui/core/CircularProgress';
 const use_style = makeStyles((theme) => ({
   paper: {
     display: 'flex',
@@ -17,13 +16,17 @@ const use_style = makeStyles((theme) => ({
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
+  center: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
 }));
 
 export default function List() {
   const [pagenumber, set_pagenumber] = useState(0);
   const RED = '#99cccc';
   const BLUE = '#008080';
-  const MAX = 9;
+  const MAX = 10;
   const classes = use_style();
   const list = useSelector((state) => state.lists);
   const sliceByNumber = (array, number) => {
@@ -33,7 +36,7 @@ export default function List() {
       .map((_, i) => array.slice(i * number, (i + 1) * number));
   };
   const tenList = sliceByNumber(list, MAX);
-  const listcount = Math.ceil(list.length / 10);
+  const listcount = Math.ceil(list.length / MAX);
   const pageChange = (e, value) => {
     set_pagenumber(value - 1);
   };
@@ -41,16 +44,20 @@ export default function List() {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      <Link to={"/form"}>フォーム</Link>
       <div className={classes.paper}>
         <div className={classes.form}>
-          {tenList[pagenumber]?.map((data, index) =>
-            index % 2 !== 0 ? (
-              <Listitem color={RED} data={data} key={data.documentID} />
-            ) : (
-              <Listitem color={BLUE} data={data} key={data.documentID} />
+          {tenList[pagenumber] ? (
+            tenList[pagenumber].map((data, index) =>
+              index % 2 !== 0 ? (
+                <Listitem color={RED} data={data} key={data.documentID} />
+              ) : (
+                <Listitem color={BLUE} data={data} key={data.documentID} />
+              )
             )
-            
+          ) : (
+            <div className={classes.center}>
+              <CircularProgress />
+            </div>
           )}
         </div>
         <Pagenation count={listcount} onChange={pageChange} color="primary" />
