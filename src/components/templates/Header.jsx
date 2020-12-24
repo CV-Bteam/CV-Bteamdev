@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
+
   const user = useContext(AuthContext)
   const history = useHistory()
   const logout = () => {

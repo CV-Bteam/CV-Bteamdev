@@ -104,11 +104,12 @@ function Detail() {
     reset();
   };
   
+
     const handleDeleteList = () => {
     firebase.firestore().collection('messages').doc(id).delete();
   };
-  // console.log(user?.uid)
-  console.log(data)
+
+
   
   const url = data?.url;
   const startIndex = url?.indexOf('/dp/') + 4;
@@ -140,7 +141,9 @@ function Detail() {
           <Grid item xs={6} className={classes.flex2}>
             <h2 className={classes.title}>{data?.title}</h2>
             <Card className={classes.root}>
+
               <CardMedia component="img" image={src} className={classes.img} />
+
             </Card>
           </Grid>
           <Grid item xs={6} className={classes.form1}>
