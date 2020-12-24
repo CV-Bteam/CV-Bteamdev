@@ -26,7 +26,7 @@ export default function List() {
   const [pagenumber, set_pagenumber] = useState(0);
   const RED = '#99cccc';
   const BLUE = '#008080';
-  const MAX = 9;
+  const MAX = 10;
   const classes = use_style();
   const list = useSelector((state) => state.lists);
   const sliceByNumber = (array, number) => {
@@ -36,7 +36,7 @@ export default function List() {
       .map((_, i) => array.slice(i * number, (i + 1) * number));
   };
   const tenList = sliceByNumber(list, MAX);
-  const listcount = Math.ceil(list.length / 10);
+  const listcount = Math.ceil(list.length / MAX);
   const pageChange = (e, value) => {
     set_pagenumber(value - 1);
   };
