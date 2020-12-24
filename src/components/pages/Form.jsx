@@ -29,14 +29,19 @@ const use_style = makeStyles((theme) => ({
   },
 }));
 
+
+
 export default function Form() {
   const classes = use_style();
   const { register, errors, handleSubmit, control } = useForm();
   const submit = (data) => {
+    const now = new Date();
+    const date = now.getTime();
     firebase.firestore().collection('messages').add({
       text: data.detail,
       title: data.title,
       url: data.url,
+      date: date
     });
   };
 
