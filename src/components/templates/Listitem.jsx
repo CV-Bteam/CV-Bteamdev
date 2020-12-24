@@ -17,12 +17,14 @@ const Listitem = ({ color, data }) => {
     },
     title: {
       textDecoration: 'none',
-      color: 'black'
-    }
+      color: 'black',
+    },
   });
 
   const classes = use_style();
- 
+  const str = data.rating;
+  const result = parseInt(str);
+
   return (
   
     <div className={classes.container} >
@@ -32,7 +34,7 @@ const Listitem = ({ color, data }) => {
         {listitem.title}
       </Link>
       <div>
-        <Rating readOnly />
+        <Rating value={result} readOnly />
       </div>
       
     </div>

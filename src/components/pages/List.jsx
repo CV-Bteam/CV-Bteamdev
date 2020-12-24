@@ -17,9 +17,9 @@ const use_style = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   center: {
-    display: "flex",
-    justifyContent: "center"
-  }
+    display: 'flex',
+    justifyContent: 'center',
+  },
 }));
 
 export default function List() {
@@ -46,13 +46,19 @@ export default function List() {
       <CssBaseline />
       <div className={classes.paper}>
         <div className={classes.form}>
-          {tenList[pagenumber] ? tenList[pagenumber].map((data, index) =>
-            index % 2 !== 0 ? (
-              <Listitem color={RED} data={data} key={data.documentID} />
-            ) : (
+          {tenList[pagenumber] ? (
+            tenList[pagenumber].map((data, index) =>
+              index % 2 !== 0 ? (
+                <Listitem color={RED} data={data} key={data.documentID} />
+              ) : (
                 <Listitem color={BLUE} data={data} key={data.documentID} />
               )
-          ) : <div className={classes.center}><CircularProgress /></div>}
+            )
+          ) : (
+            <div className={classes.center}>
+              <CircularProgress />
+            </div>
+          )}
         </div>
         <Pagenation count={listcount} onChange={pageChange} color="primary" />
       </div>

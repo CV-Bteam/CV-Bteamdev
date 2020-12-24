@@ -11,6 +11,7 @@ import Rating from "@material-ui/lab/Rating"
 import { AuthContext } from '../../Auth/AuthServise';
 
 
+
 const use_style = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -39,6 +40,7 @@ export default function Form() {
       text: data.detail,
       title: data.title,
       url: data.url,
+      rating: data.reviews,
       userid: user.uid,
     });
   };
@@ -74,8 +76,11 @@ export default function Form() {
             inputRef={register({ required: true })}
           />
 
-          {errors.url && <p className={classes.color}>本のURLを入力してください</p>}
+          {errors.url && (
+            <p className={classes.color}>本のURLを入力してください</p>
+          )}
           <Controller
+            type="rating"
             name="reviews"
             control={control}
             defaultValue={2.5}
@@ -110,6 +115,4 @@ export default function Form() {
       </div>
     </Container>
   );
-
 }
-
