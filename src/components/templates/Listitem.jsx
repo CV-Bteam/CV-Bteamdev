@@ -19,8 +19,14 @@ const Listitem = ({ data, color }) => {
       overflow: 'hidden',
       whiteSpace: 'nowrap',
       textOverflow: 'ellipsis',
+    },
+    p: {
+      maxWidth: "60px",
+      paddingLeft: "20px"
+    },
+    star: {
+      paddingRight: "20px"
     }
-
   });
 
   const classes = use_style();
@@ -29,11 +35,10 @@ const Listitem = ({ data, color }) => {
 
   return (
     <div className={classes.container} >
-      <h4>title</h4>
-      <Link className={classes.title} to={`/detail/${data.documentID}`}>
+      <Link className={classes.title + " " + classes.p} to={`/detail/${data.documentID}`}>
         {data.title}
       </Link>
-      <div>
+      <div className={classes.star}>
         <Rating value={result} readOnly precision={0.5} />
       </div>
     </div>
