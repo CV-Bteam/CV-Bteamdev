@@ -1,13 +1,17 @@
-import React from 'react';
+import React ,{useContext} from 'react';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useForm } from 'react-hook-form';
+import { Link } from "react-router-dom";
 import firebase from '../../firebase/firebase'
 import { Controller } from "react-hook-form"
 import Rating from "@material-ui/lab/Rating"
+import { AuthContext } from '../../Auth/AuthServise';
+
+
 
 
 const use_style = makeStyles((theme) => ({
@@ -27,11 +31,17 @@ const use_style = makeStyles((theme) => ({
   color: {
     color: 'red',
   },
+  link: {
+    color: "#fff",
+    textDecoration: "none",
+    fontSize: "20px"
+  },
 }));
 
 
 
 export default function Form() {
+  const user = useContext(AuthContext);
   const classes = use_style();
   const { register, errors, handleSubmit, control } = useForm();
   const submit = (data) => {
@@ -41,7 +51,8 @@ export default function Form() {
       text: data.detail,
       title: data.title,
       url: data.url,
-      date: date
+      rating: data.reviews,
+      userid: user.uid,
     });
   };
 
@@ -76,8 +87,11 @@ export default function Form() {
             inputRef={register({ required: true })}
           />
 
-          {errors.url && <p className={classes.color}>本のURLを入力してください</p>}
+          {errors.url && (
+            <p className={classes.color}>本のURLを入力してください</p>
+          )}
           <Controller
+            type="rating"
             name="reviews"
             control={control}
             defaultValue={2.5}
@@ -106,12 +120,13 @@ export default function Form() {
             style={{ backgroundColor: '#004d40' }}
             className={classes.submit}
           >
+            <Link to="/List" className={classes.link}>
             ADD
+            </Link>
           </Button>
+          
         </form>
       </div>
     </Container>
   );
-
 }
-
