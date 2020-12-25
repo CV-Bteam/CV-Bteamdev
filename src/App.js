@@ -44,11 +44,11 @@ function App() {
               component={SignIn}
             />
             <Route
-              // exact path="/List"
+              exact path="/"
               component={List}
             />
             <Route
-              exact path="/detail/:id"
+              path="/detail/:id"
               component={Detail}
             />
           </Switch>

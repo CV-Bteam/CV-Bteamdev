@@ -62,8 +62,8 @@ export default function List() {
             </div>
           )}
         </div>
+          <Pagenation count={listcount} onChange={pageChange} color="primary" />
         </div>
-        <Pagenation count={listcount} onChange={pageChange} color="primary" />
     </Container>
   );
 }

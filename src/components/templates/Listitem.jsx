@@ -1,10 +1,11 @@
-import React ,{useState}from 'react';
+import React from 'react';
 import Rating from '@material-ui/lab/Rating';
-import { makeStyles } from "@material-ui/core/styles"
+import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 
-const Listitem = ({data,color}) => {
+const Listitem = ({ data, color }) => {
   const use_style = makeStyles({
-    container:{
+    container: {
       fontSize: "16px",
       backgroundColor: color,
       display: "flex",
@@ -17,30 +18,26 @@ const Listitem = ({data,color}) => {
 
       overflow: 'hidden',
       whiteSpace: 'nowrap',
-      textOverflow: 'ellipsis', 
+      textOverflow: 'ellipsis',
     }
 
   });
 
   const classes = use_style();
   const str = data.rating;
-  const result = parseInt(str);
+  const result = Number(str);
 
   return (
-  
     <div className={classes.container} >
-       
       <h4>title</h4>
-      <Link className={classes.title} to={`/detail/${listitem.documentID}`}>
-        {listitem.title}
+      <Link className={classes.title} to={`/detail/${data.documentID}`}>
+        {data.title}
       </Link>
-      
       <div>
-        <Rating value={result} readOnly />
+        <Rating value={result} readOnly precision={0.5} />
       </div>
-      
     </div>
-    
+
   );
 };
 
