@@ -44,7 +44,7 @@ function App() {
               component={SignIn}
             />
             <Route
-              exact path="/"
+              // exact path="/List"
               component={List}
             />
             <Route

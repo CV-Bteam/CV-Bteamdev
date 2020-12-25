@@ -18,7 +18,12 @@ const Listitem = ({ color, data }) => {
     title: {
       textDecoration: 'none',
       color: 'black',
-    },
+
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      textOverflow: 'ellipsis', 
+    }
+
   });
 
   const classes = use_style();
@@ -33,6 +38,7 @@ const Listitem = ({ color, data }) => {
       <Link className={classes.title} to={`/detail/${listitem.documentID}`}>
         {listitem.title}
       </Link>
+      
       <div>
         <Rating value={result} readOnly />
       </div>
