@@ -5,9 +5,12 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useForm } from 'react-hook-form';
-import firebase from '../../firebase/firebase'
-import { Controller } from "react-hook-form"
-import Rating from "@material-ui/lab/Rating"
+import firebase from '../../firebase/firebase';
+import { Controller } from "react-hook-form";
+import Rating from "@material-ui/lab/Rating";
+import { Link } from "react-router-dom";
+
+
 
 
 const use_style = makeStyles((theme) => ({
@@ -26,6 +29,11 @@ const use_style = makeStyles((theme) => ({
   },
   color: {
     color: 'red',
+  },
+  link: {
+    color: "#fff",
+    textDecoration: "none",
+    fontSize: "20px"
   },
 }));
 
@@ -101,8 +109,11 @@ export default function Form() {
             style={{ backgroundColor: '#004d40' }}
             className={classes.submit}
           >
+            <Link to="/List" className={classes.link}>
             ADD
+            </Link>
           </Button>
+          
         </form>
       </div>
     </Container>

@@ -48,11 +48,10 @@ export default function List() {
             ) : (
               <Listitem color={BLUE} data={data} key={data.documentID} />
             )
-            
           )}
         </div>
+        </div>
         <Pagenation count={listcount} onChange={pageChange} color="primary" />
-      </div>
     </Container>
   );
 }
