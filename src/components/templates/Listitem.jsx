@@ -8,17 +8,24 @@ const Listitem = ({data,color}) => {
       fontSize: "16px",
       backgroundColor: color,
       display: "flex",
-      justifyContent: "space-around",
+      justifyContent: "space-between",
       alignItems: "center"
-    }})
+    },
+    p: {
+      maxWidth: "60%",
+      paddingLeft: "20px"
+    },
+    star: {
+      paddingRight: "20px"
+    }
+  })
 
   const classes = use_style()
 
   return (
     <div className={classes.container}>
-      <h4>title</h4>
-      <p>{data?.title}</p>
-      <div><Rating readOnly /></div>
+      <p className={classes.p}>{data?.title}</p>
+      <div className={classes.star}><Rating readOnly /></div>
     </div>
   )
 }
