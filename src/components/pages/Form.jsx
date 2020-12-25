@@ -6,8 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useForm } from 'react-hook-form';
 import { Link } from "react-router-dom";
-
-
 import firebase from '../../firebase/firebase'
 import { Controller } from "react-hook-form"
 import Rating from "@material-ui/lab/Rating"
@@ -40,11 +38,15 @@ const use_style = makeStyles((theme) => ({
   },
 }));
 
+
+
 export default function Form() {
   const user = useContext(AuthContext);
   const classes = use_style();
   const { register, errors, handleSubmit, control } = useForm();
   const submit = (data) => {
+    const now = new Date();
+    const date = now.getTime();
     firebase.firestore().collection('messages').add({
       text: data.detail,
       title: data.title,

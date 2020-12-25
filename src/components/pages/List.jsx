@@ -35,11 +35,13 @@ export default function List() {
       .fill()
       .map((_, i) => array.slice(i * number, (i + 1) * number));
   };
-  const tenList = sliceByNumber(list, MAX);
+  const sortList = list.slice().sort((a, b) => b.date - a.date);
+  const tenList = sliceByNumber(sortList, MAX);
   const listcount = Math.ceil(list.length / MAX);
   const pageChange = (e, value) => {
     set_pagenumber(value - 1);
   };
+  // console.log(tenList)
 
   return (
     <Container component="main" maxWidth="xs">

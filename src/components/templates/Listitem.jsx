@@ -1,19 +1,15 @@
 import React ,{useState}from 'react';
 import Rating from '@material-ui/lab/Rating';
-import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import { useSelector } from 'react-redux';
+import { makeStyles } from "@material-ui/core/styles"
 
-const Listitem = ({ color, data }) => {
-  const listitems = useSelector((state) => state.lists);
-  const listitem = listitems.find((e) => e.documentID === data.documentID);
+const Listitem = ({data,color}) => {
   const use_style = makeStyles({
-    container: {
-      fontSize: '16px',
+    container:{
+      fontSize: "16px",
       backgroundColor: color,
-      display: 'flex',
-      justifyContent: 'space-around',
-      alignItems: 'center',
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center"
     },
     title: {
       textDecoration: 'none',
@@ -48,4 +44,4 @@ const Listitem = ({ color, data }) => {
   );
 };
 
-export default Listitem;
+export default Listitem
