@@ -63,7 +63,11 @@ export default function PrimarySearchAppBar() {
                 <Button className={classes.button} onClick={logout}>logout</Button>
               </>
               :
-              <Link className={classes.link} to={"/signin"}>signin</Link>}
+              <>
+              <Link className={classes.link} to={"/signin"} style={{paddingRight: '60px'}}>signin</Link>
+              <Link className={classes.link} to={"/signup"}>signup</Link>
+              </>
+              }
           </div>
         </Toolbar>
       </AppBar>
