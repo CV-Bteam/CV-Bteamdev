@@ -15,14 +15,16 @@ const Listitem = ({ data, color }) => {
     title: {
       textDecoration: 'none',
       color: 'black',
-
       overflow: 'hidden',
       whiteSpace: 'nowrap',
       textOverflow: 'ellipsis',
     },
     p: {
-      maxWidth: "60px",
-      paddingLeft: "20px"
+      display:"flex",
+      alignItems:"center",
+      maxWidth: "50%",
+      paddingLeft: "20px",
+      height: 50,
     },
     star: {
       paddingRight: "20px"
